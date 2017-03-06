@@ -1,0 +1,196 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>问题详情</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">主页</a>
+      </li>
+      <li>
+        <a href="" ui-sref="asking.question">列表</a>
+      </li>
+      <li class="active">
+        <strong>详情</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row" ng-init="userType = 'doctor'">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content">
+      <div class="ibox-content forum-post-container">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="m-b-md question-detail">
+              <div class="pull-right" uib-dropdown style="margin-left: 15px;">
+                <a uib-dropdown-toggle="" href>
+                  <i class="fa fa-bars" style="font-size: 20px;"></i>
+                </a>
+                <ul uib-dropdown-menu class="m-t-xs">
+                  <li><a href="" ui-sref="asking.question.detail.edit"><i class="fa fa-edit"></i> 编辑</a></li>
+                  <li><a href="" ng-if="question.status" ng-click="cancelQuestion()"><i class="fa fa-send-o"></i> 取消发布</a></li>
+                  <li><a href="" ng-if="question.status=='0'" ng-click="confirmQuestion()"><i class="fa fa-send"></i> 发布</a></li>
+                  <li><a href="" ng-click="deleteQuestion()"><i class="fa fa-trash-o"></i> 删除</a></li>
+                </ul>
+              </div>
+              <h2 style="margin-bottom: 30px;">{{question.title}}</h2>
+
+
+              <dl>
+                <dt>发布状态：</dt>
+                <dd>{{{true:'已发布',"0":'未发布','undefined': '-'}[question.status]}}</dd>
+              </dl>
+              <dl>
+                <dt>ID：</dt>
+                <dd>{{question._id || '-'}}</dd>
+              </dl>
+              <dl >
+                <dt>提出者：</dt>
+                <dd>{{question.user.realName || '-'}}</dd>
+              </dl>
+              <dl >
+                <dt>年龄：</dt>
+                <dd>{{question.meta.age || '-'}}</dd>
+              </dl>
+              <dl >
+                <dt>性别：</dt>
+                <dd>{{{'0':'男','1':'女','undefined': '-'}[question.meta.gender]}}</dd>
+              </dl>
+              <dl >
+                <dt>是否就医：</dt>
+                <dd>{{{'false':'否','true':'是','undefined': '-'}[question.meta.treated]}}</dd>
+              </dl>
+              <dl ng-if="question.meta.treated">
+                <dt>就诊医院+科室：</dt>
+                <dd>{{question.meta.hospitalAndOffice || '-'}}</dd>
+              </dl>
+              <dl ng-if="question.meta.treated">
+                <dt>主要检查及结果：</dt>
+                <dd>{{question.meta.resultOfCheck || '-'}}</dd>
+              </dl>
+              <dl ng-if="question.meta.medicine">
+                <dt>用药情况：</dt>
+                <dd>{{question.meta.medicine}}</dd>
+              </dl>
+              <dl ng-if="question.meta.note1">
+                <dt>何时得过何种疾病：</dt>
+                <dd>{{question.meta.note1}}</dd>
+              </dl>
+              <dl ng-if="question.meta.note2">
+                <dt>做过何种手术/放化疗：</dt>
+                <dd>{{question.meta.note2}}</dd>
+              </dl>
+              <dl ng-if="question.meta.note3">
+                <dt>家族中是否有类似情况：</dt>
+                <dd>{{question.meta.note3}}</dd>
+              </dl>
+              <dl ng-if="question.meta.nickName">
+                <dt>称呼：</dt>
+                <dd>{{question.meta.nickName}}</dd>
+              </dl>
+              <dl ng-if="question.meta.phone">
+                <dt>联系方式：</dt>
+                <dd>{{question.meta.phone}}</dd>
+              </dl>
+              <dl>
+                <dt>病情描述：</dt>
+                <dd>{{question.meta.description || '-'}}</dd>
+              </dl>
+              <dl>
+                <dt>问题内容：</dt>
+                <dd>{{question.content || '-'}}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <div class="ibox">
+          <div class="ibox-content">
+            <h3></h3>
+            <div class="form-group">
+              <label>选择回复人</label>
+              <ui-select ng-model="user.selected" theme="bootstrap" on-select="selectUser($item)">
+                <ui-select-match placeholder="请选择回复人">{{$select.selected.realName}}</ui-select-match>
+                <ui-select-choices repeat="item in usersList | filter: $select.search" refresh="refreshUsers($select.search)">
+                  <div ng-bind-html="item.realName | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+              <!--<div class="input-group m-b">-->
+              <!--<div class="input-group-btn">-->
+              <!--<button class="btn btn-white" uib-dropdown-toggle type="button">-->
+              <!--{{{'doctor': '医生','editor': '编辑', undefined: '用户类型'}[userType]}} <span class="caret"></span>-->
+              <!--</button>-->
+              <!--<ul uib-dropdown-menu>-->
+              <!--<li><a href="" ng-click="userType = 'doctor';loadUsers();">医生</a></li>-->
+              <!--<li><a href="" ng-click="userType = 'editor';loadUsers();">编辑</a></li>-->
+              <!--</ul>-->
+              <!--</div>-->
+              <!--<ui-select ng-model="user.selected" theme="bootstrap" on-select="selectSender($item)">-->
+              <!--<ui-select-match placeholder="请选择发送人">{{$select.selected.realName}}</ui-select-match>-->
+              <!--<ui-select-choices repeat="item in usersList | filter: $select.search" refresh="refreshUsers($select.search)">-->
+              <!--<div ng-bind-html="item.realName | highlight: $select.search"></div>-->
+              <!--</ui-select-choices>-->
+              <!--</ui-select>-->
+              <!--</div>-->
+            </div>
+            <div class="form-group">
+              <label>回复内容</label>
+              <textarea class="form-control" placeholder="" rows="3" ng-model="answer.content" style="resize: none;" ></textarea>
+            </div>
+            <div class="form-group">
+              <label>是否同时发布该问题</label>
+              <label class="checkbox-inline">
+                <input icheck type="checkbox" ng-model="release">
+              </label>
+            </div>
+            <button class="btn btn-primary btn-block" ng-click="saveAnswer()" >发送</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div ng-if="question.answers && question.answers.length > 0">
+        <!--<div class="ibox-content m-t-md border-bottom">-->
+        <!--<div class="row">-->
+        <!--<div class="col-sm-5">-->
+        <!--&lt;!&ndash;<select class="input-sm form-control input-s-sm inline" ng-model="answerStatus" ng-options="status.value as status.label for status in statuses"></select>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="col-sm-4 m-b-xs"></div>-->
+        <!--<div class="col-sm-3">-->
+        <!--<div class="input-group">-->
+        <!--<input type="text" placeholder="请输入关键字搜索" class="input-sm form-control" ng-model="q">-->
+        <!--<span class="input-group-btn">-->
+        <!--<button type="button" class="btn btn-sm btn-primary" ng-click="keywordSearch()"> 搜索</button>-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="ibox-content forum-post-container">
+          <div class="feed-element" ng-repeat="answer in question.answers" style="overflow: visible;">
+            <a href="" class="pull-left">
+              <img alt="image" class="img-circle" avatar="{{answer.user.avatar.thumb}}">
+            </a>
+
+            <div class="media-body" style="overflow: visible;margin-left: 48px;">
+              <div class="pull-right" uib-dropdown style="margin-left: 15px;">
+                <a uib-dropdown-toggle="" href>
+                  <i class="fa fa-bars"></i>
+                </a>
+                <ul uib-dropdown-menu class="m-t-xs">
+                  <li><a href="" ng-click="openEditAnswerModal(answer)" ng-controller="ModalController"><i class="fa fa-edit"></i> 编辑</a></li>
+                  <li><a href="" ng-click="deleteAnswer($index)"><i class="fa fa-trash-o"></i> 删除</a></li>
+                </ul>
+              </div>
+              <small class="pull-right">{{answer.dateCreated | interval}}</small>
+              <strong>{{answer.user.realName || '未命名'}}</strong><br>
+              <span>{{answer.content}}</span><br/>
+              <small class="text-muted">{{answer.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

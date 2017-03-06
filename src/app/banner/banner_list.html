@@ -1,0 +1,61 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-6">
+    <h2>横幅</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">主页</a>
+      </li>
+      <li class="active">
+        <strong>列表</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-sm-6">
+    <div class="title-action">
+      <button type="button" class="btn btn-default" ng-model="status" data-html="1" data-toggle="true" bs-options="status.value as status.label for status in statuses" bs-select>
+        Action <span class="caret"></span>
+      </button>
+      <a href="" ui-sref="banner.add" class="btn btn-primary btn-sm">新增横幅</a>
+    </div>
+  </div>
+</div>
+<div class="wrapper wrapper-content ng-scope">
+  <div class="row">
+    <div class="col-md-3 col-sm-4" ng-repeat="banner in banners">
+      <div class="ibox">
+        <div class="ibox-content product-box">
+
+          <!--<div class="product-imitation">-->
+            <!--[ INFO ]-->
+          <!--</div>-->
+          <div class="product-imitation" style="background-image: url('{{banner.coverPath}}');">
+          </div>
+          <div class="product-desc" style="height: 100px;">
+                                <span class="product-price">
+                                    #{{banner.position}}
+
+                                </span>
+            <a ui-sref="banner.edit({bannerId:banner._id})" class="product-name"> {{banner.title | limitTo:20}}</a>
+            <!--<div class="small m-t-xs">-->
+              <!--<a href="{{banner.url}}">-->
+                <!--{{banner.url | limitTo:60}}-->
+              <!--</a>-->
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+<style>
+  .product-imitation{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 145px;
+    position: relative;
+    width: 100%;
+  }
+
+</style>

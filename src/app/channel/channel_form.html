@@ -1,0 +1,142 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2 ng-if="channel._id">编辑频道</h2>
+    <h2 ng-if="!channel._id">新增频道</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">主页</a>
+      </li>
+      <li>
+        <a href="" ui-sref="channel.question">列表</a>
+      </li>
+      <li ng-if="channel._id">
+        <a href="" ui-sref="channel.question.detail({channelId: channel._id})">详情</a>
+      </li>
+      <li class="active" ng-if="channel._id">
+        <strong>编辑</strong>
+      </li>
+      <li class="active" ng-if="!channel._id">
+        <strong>新建</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content">
+      <div class="ibox-content forum-post-container">
+
+        <div class="ibox">
+          <div class="ibox-content" style="border-top: 0;padding-top: 0;">
+            <h3></h3>
+            <form name="myForm">
+              <div class="form-group">
+                <label>频道标题 <span class="warn-red">*</span></label>
+                <input type="text" class="form-control" placeholder="请填写频道标题" ng-model="channel.title" name="title" required="">
+                <div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">
+                  <div ng-message="required">请填写频道标题</div>
+                </div>
+              </div>
+              <div class="form-group" >
+                <label>背景图片 <span class="warn-red">*</span></label>
+                <div class="col-sm-12">
+                  <div style="margin-bottom: 5px" ng-if="channel.coverPath">
+                    <img width="70%" src="{{channel.coverPath}}">
+                  </div>
+                  <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <input class="upload" type="file" name="banner_cover" id="banner_cover" style="opacity: 0;width: 100%;height: 30px;cursor: pointer;" nv-file-select uploader="uploader"/>
+                    <button class="btn btn-outline btn-primary" style="margin-top: -30px;cursor: pointer;" type="button">&nbsp;上传图片</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>开始时间 <span class="warn-red">*</span></label>
+                <div class="row">
+                  <div class="form-group col-xs-6">
+                    <input type="text" size="10" class="form-control" data-date-format="yyyy-MM-dd"  ng-model="channel.startDate" name="startDate" data-autoclose="1" placeholder="日期" bs-datepicker required>
+                    <div class="error-help" ng-messages="myForm.startDate.$dirty && myForm.startDate.$error" role="alert">
+                      <div ng-message="required">请填写频道开始时间</div>
+                    </div>
+                  </div>
+                  <div class="form-group col-xs-6" ng-if="myForm.startDate.$valid">
+                    <input type="text" size="8" class="form-control" ng-model="channel.startDate" data-time-format="HH:mm:ss" data-autoclose="1" placeholder="时间"  bs-timepicker>
+                  </div>
+                </div>
+                <!--<input type="date" class="form-control" placeholder="请填写开始时间" ng-model="channel.startDate">-->
+              </div>
+              <div class="form-group">
+                <label>结束时间 <span class="warn-red">*</span></label>
+                <div class="row">
+                  <div class="form-group col-xs-6">
+                    <input type="text" size="10" class="form-control" data-date-format="yyyy-MM-dd" ng-model="channel.endDate" name="endDate" data-autoclose="1" placeholder="日期" bs-datepicker required>
+                    <div class="error-help" ng-messages="myForm.endDate.$dirty && myForm.endDate.$error" role="alert">
+                      <div ng-message="required">请填写频道结束时间</div>
+                    </div>
+                  </div>
+                  <div class="form-group col-xs-6" ng-if="myForm.endDate.$valid">
+                    <input type="text" size="8" class="form-control" ng-model="channel.endDate" data-time-format="HH:mm:ss" data-autoclose="1" placeholder="时间" bs-timepicker >
+                  </div>
+                </div>
+                <!--<input type="date" class="form-control" placeholder="请填写结束时间" ng-model="channel.endDate">-->
+              </div>
+              <div class="form-group">
+                <label>人气值 </label>
+                <input type="text" class="form-control" placeholder="请填写人气值" ng-model="channel.hot" name="hot" >
+                <div class="error-help" ng-messages="myForm.hot.$dirty && myForm.hot.$error" role="alert">
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label>选择主持人</label>
+                <ui-select ng-model="compere.selected" theme="bootstrap" on-select="selectUser($item,'compere','channel')">
+                  <ui-select-match placeholder="请选择主持人">{{$select.selected.realName}}</ui-select-match>
+                  <ui-select-choices repeat="item in editorsList | filter: $select.search" refresh="refreshUsers($select.search,'editor','form')">
+                    <div ng-bind-html="item.realName | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <div class="form-group">
+                <label>选择坐诊专家 <span class="warn-red">*</span></label>
+                <ui-select ng-model="editor.selected" theme="bootstrap" on-select="selectUser($item,'user','channel')">
+                  <ui-select-match placeholder="请选择坐诊专家">{{$select.selected.realName}}</ui-select-match>
+                  <ui-select-choices repeat="item in comperesList | filter: $select.search" refresh="refreshUsers($select.search,'doctor','form')">
+                    <div ng-bind-html="item.realName | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+                <div class="error-help" ng-messages="myForm.endDate.$dirty && myForm.endDate.$error" role="alert">
+                  <div ng-message="required">请填写频道开始时间</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>频道内容 <span class="warn-red">*</span></label>
+                <textarea class="form-control" placeholder="" rows="3" name="content" ng-model="channel.content"  style="resize: none;" required></textarea>
+                <div class="error-help" ng-messages="myForm.content.$dirty && myForm.content.$error" role="alert">
+                  <div ng-message="required">请填写频道开始时间</div>
+                </div>
+              </div>
+
+              <div class="form-group" ng-if="channel._id">
+                <div class="row">
+                  <label class="col-sm-2 control-label">是否发布</label>
+                  <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                      <input icheck type="checkbox" ng-model="channel.status">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary" type="button" ng-click="saveChannel()"><i class="fa fa-check"></i>&nbsp;提交</button>
+                <a class="btn btn-white" type="button" ui-sref="channel.question.detail({channelId: channel._id})" ng-if="channel._id">取消</a>
+                <a class="btn btn-white" type="button" ui-sref="channel.question" ng-if="!channel._id">取消</a>
+              </div>
+            </form>
+            <!--<button class="btn btn-primary btn-block">发送</button>-->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

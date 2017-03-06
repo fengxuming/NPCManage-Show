@@ -1,0 +1,15 @@
+**/.idea/**/*
+**/bower_components/**/*
+**/node_modules/**/*
+**/dest/**
+**/dist/**
+**/*.log
+**/.DS_Store
+**/.classpath
+**/.asscache
+**/.slcache/**/*
+**/.project
+**/.settings/**/*
+**/out/**/*
+**/mock/**/*
+**/docs/**/*

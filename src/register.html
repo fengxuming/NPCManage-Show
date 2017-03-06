@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <!-- build:css css/regiser.min.css -->
+    <link rel="stylesheet" href="app/index.css">
+
+
+
+  <!-- endbuild -->
+</head>
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen  animated fadeInDown" ng-app="inspinia"
+     ng-controller="registerCtrl">
+  <div>
+    <div>
+
+
+    </div>
+    <h3>生命时报</h3>
+    <p>创建账号</p>
+    <form class="m-t" role="form"  method="post" onsubmit="return false" name="registerForm" novalidate>
+
+      <div id="username-group">
+        <input type="text"
+               class="form-control" ng-model="username" name="username" id="username" ng-focus="usernameFlag=true" ng-blur="usernameFlag=false"
+               placeholder="请输入账号..." required >
+
+          <p >
+                    <span style="color: red" ng-show="registerForm.username.$invalid" >
+                        <span ng-show="usernameFlag==false">*请输入账号</span>
+                    </span>
+          </p>
+
+
+      </div>
+
+      <div id="realName-group">
+        <input type="text" class="form-control" ng-model="realName" name="realName" id="realName" ng-focus="realNameFlag=true" ng-blur="realNameFlag=false"
+               placeholder="请输入呢称..." required  >
+        <p >
+                    <span style="color: red" ng-show="registerForm.realName.$invalid" >
+                        <span ng-show="realNameFlag==false">*请输入呢称</span>
+                    </span>
+        </p>
+
+      </div>
+
+      <div id="password-group">
+         <input type="password" class="form-control" ng-model="password" ng-minlength="6" ng-focus="passwordFlag=true" ng-blur="passwordFlag=false"
+                ng-maxlength="20" name="password" id="password"
+                placeholder="请输入密码..." required >
+        <p>
+                    <span style="color: red" ng-show="registerForm.password.$invalid">
+                        <span ng-show="passwordFlag==false&&registerForm.password.$error.required">*请输入密码</span>
+                        <span ng-show="passwordFlag==false&&registerForm.password.$error.minlength">*密码长度不小于6</span>
+                        <span ng-show="passwordFlag==false&&registerForm.password.$error.maxlength">*密码长度不超过20</span>
+                    </span>
+        </p>
+
+
+      </div>
+
+      <div id="passwordagaingroup">
+       <input type="password" class="form-control" ng-model="passwordagain" name="passwordagain" ng-focus="passwordagainFlag=true" ng-blur="passwordagainFlag=false"
+              id="passwordagain" placeholder="请再输一遍密码..." required  >
+
+        <p>
+
+                    <span style="color: red" ng-show="registerForm.passwordagain.$valid">
+                        <span ng-show="passwordagainFlag=true&&passwordagain!=password">*两次密码输入不一致</span>
+                    </span>
+
+
+        </p>
+      </div>
+
+      <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled=" registerForm.username.$invalid ||registerForm.realName.$invalid|| registerForm.password.$invalid || password != passwordagain"
+              onclick="register()">注册</button>
+
+
+      <p class="text-muted text-center"><small>已有账号？</small></p>
+      <a class="btn btn-sm btn-white btn-block" href="login.html">登录</a>
+
+    </form>
+    <!--<p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>-->
+  </div>
+</div>
+
+<!-- build:js js/angular.min.js -->
+<script src="../bower_components/angular/angular.min.js"></script>
+<!-- endbuild -->
+
+<!-- build:js js/regiser.min.js -->
+<script src="js/register.js"></script>
+<!-- endbuild -->
+
+<!-- build:js js/regiser.controller.min.js -->
+<script src="js/controller/register.controller.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>

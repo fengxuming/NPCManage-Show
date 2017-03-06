@@ -1,0 +1,243 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>频道详情</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">主页</a>
+      </li>
+      <li>
+        <a href="" ui-sref="channel.question">列表</a>
+      </li>
+      <li class="active">
+        <strong>详情</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content">
+      <div class="ibox-content forum-post-container">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="m-b-md question-detail">
+              <!--<a href="" ui-sref="channel.question.detail.edit" class="btn btn-white btn-xs pull-right">编辑频道</a>-->
+              <div class="pull-right" uib-dropdown style="margin-left: 15px;">
+                <a uib-dropdown-toggle="" href>
+                  <i class="fa fa-bars" style="font-size: 20px;"></i>
+                </a>
+                <ul uib-dropdown-menu class=" m-t-xs">
+                  <li><a href="" ui-sref="channel.question.detail.edit"><i class="fa fa-edit"></i> 编辑</a></li>
+                  <li><a href="" ng-click="deleteChannel()"><i class="fa fa-trash-o"></i> 删除</a></li>
+                </ul>
+              </div>
+              <h2 style="margin-bottom: 30px;">{{channel.title}}</h2>
+              <!--<small>主持人： {{channel.user.realName}} </small><br/>-->
+              <!--<small>描述： {{channel.content}} </small>-->
+              <dl>
+                <dt>发布状态：</dt>
+                <dd>{{{true:'已发布',false:'未发布','undefined': '-'}[channel.status]}}</dd>
+              </dl>
+              <dl>
+                <dt>ID：</dt>
+                <dd>{{channel._id|| '-'}}</dd>
+              </dl>
+              <dl>
+                <dt>封面：</dt>
+                <dd>
+                  <div style="margin-bottom: 10px" ng-if="channel.coverPath">
+                    <img width="50%" src="{{channel.coverPath}}">
+                  </div>
+                </dd>
+              </dl>
+
+              <dl>
+                <dt>主持人：</dt>
+                <dd>{{channel.compere.realName || '-'}}</dd>
+              </dl>
+              <dl>
+                <dt>坐诊专家：</dt>
+                <dd>{{channel.user.realName || '-'}}</dd>
+              </dl>
+              <dl>
+                <dt>人气值：</dt>
+                <dd>{{channel.hot || '-'}}</dd>
+              </dl>
+              <dl>
+                <dt>开始时间：</dt>
+                <dd>{{channel.startDate || '-' | date: 'yyyy-MM-dd HH:mm:ss'}}</dd>
+              </dl>
+              <dl>
+                <dt>结束时间：</dt>
+                <dd>{{channel.endDate || '-' | date: 'yyyy-MM-dd HH:mm:ss'}}</dd>
+              </dl>
+              <dl>
+                <dt>主要内容：</dt>
+                <dd>{{channel.content || '-'}}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <div class="ibox">
+          <div class="ibox-content">
+            <h3></h3>
+            <div class="form-group">
+              <label>选择用户</label>
+                <div class="radio-inline"><label> <input icheck type="radio" name="radioTest" value="compere" ng-model="message.user"> 主持人：{{channel.compere.realName}} </label></div>
+                <div class="radio-inline"><label> <input icheck type="radio" name="radioTest" value="user" ng-model="message.user"> 坐诊专家：{{channel.user.realName}} </label></div>
+                <div class="radio-inline"><label> <input icheck type="radio" name="radioTest" value="robot" ng-model="message.user"> 随机马甲 </label></div>
+
+            </div>
+
+
+            <div class="form-group">
+              <label>内容</label>
+              <textarea class="form-control" placeholder="" rows="3" ng-model="message.content" style="resize: none;"></textarea>
+            </div>
+            <!--<div class="form-group">-->
+            <!--<label>是否发布</label>-->
+            <!--<label class="checkbox-inline">-->
+            <!--<input icheck type="checkbox" ng-model="message.status">-->
+            <!--</label>-->
+            <!--</div>-->
+            <button class="btn btn-primary btn-block" ng-click="saveMessage()">提交消息</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div>
+        <div class="ibox-content m-t-md border-bottom" style="padding-top: 20px;">
+          <div class="row">
+            <div class="col-sm-5">
+              <select class="input-sm form-control input-s-sm inline" ng-model="messageStatus" ng-options="status.value as status.label for status in statuses"></select>
+            </div>
+            <div class="col-sm-4">
+              <a href="" ng-click="refreshMesList(channel._id,messageStatus)">
+                <i class="fa fa-refresh" style="font-size: 20px;line-height: 30px;"></i>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <div class="input-group">
+                <input type="text" placeholder="请输入关键字搜索" class="input-sm form-control" ng-model="search.q">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-sm btn-primary" ng-click="keywordSearch()"> 搜索</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ibox-content forum-post-container" ng-show="messagesList && messagesList.length > 0">
+          <div class="feed-element" ng-repeat="message in messagesList" style="overflow: visible;">
+            <span ng-bind="outerIndex = $index" style="display: none;"></span>
+            <a href="" class="pull-left">
+              <img alt="image" class="img-circle" avatar="{{message.user.avatar.thumb}}" ng-if="!message.user.avatarForMobile" >
+              <img alt="image" class="img-circle" src="{{message.user.avatarForMobile}}" ng-if="message.user.avatarForMobile">
+            </a>
+
+            <div class="media-body " style="overflow: visible;margin-left: 48px;">
+              <div class="pull-right" uib-dropdown style="margin-left: 15px;">
+                <a uib-dropdown-toggle="" href>
+                  <i class="fa fa-bars"></i>
+                </a>
+                <ul uib-dropdown-menu class="m-t-xs">
+                  <li><a href="" ng-click="openEditMessageModal(message)" ng-controller="ModalController"><i class="fa fa-edit"></i> 编辑</a></li>
+                  <li><a href="" ng-click="deleteMessage($index)"><i class="fa fa-trash-o"></i> 删除</a></li>
+                </ul>
+              </div>
+              <small class="pull-right">{{message.dateCreated | interval}}</small>
+              <strong>{{message.user.realName || '未命名'}}</strong>
+              <!--<a class="" ng-click="openEditMessageModal(message)" ng-controller="ModalController">-->
+              <!--<small>  编辑</small>-->
+              <!--<i class="fa fa-edit"></i>-->
+              <!--</a>-->
+              <br>
+              <span>{{message.content}}</span><br/>
+              <small class="text-muted">{{message.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</small>
+              <div class="actions">
+                <a class="btn btn-xs btn-white" href="" ng-click="message.openReply = !message.openReply"><i class="fa fa-comments-o"></i> 回复({{message.replies.length || '0'}}) </a>
+              </div>
+
+              <div class="well" ng-if="message.openReply">
+
+                <div style="margin-bottom: 30px;margin-top: 10px;">
+                  <div class="form-group">
+                    <label>选择用户</label>
+                    <div class="input-group m-b">
+                      <!--<div class="input-group-btn" uib-dropdown>-->
+                        <!--<button class="btn btn-white" uib-dropdown-toggle type="button">-->
+                          <!--{{{'doctor': '专家','editor': '编辑', undefined: '用户类型'}[message.userType]}} <span class="caret"></span>-->
+                        <!--</button>-->
+                        <!--<ul uib-dropdown-menu>-->
+                          <!--<li><a href="" ng-click="message.userType = 'doctor';refreshUsers('', message.userType);">专家</a></li>-->
+                          <!--<li><a href="" ng-click="message.userType = 'editor';refreshUsers('', message.userType);">编辑</a></li>-->
+                        <!--</ul>-->
+                      <!--</div>-->
+
+                      <!--<ui-select ng-model="replyUser.selected" theme="bootstrap" on-select="selectUser($item,'user','reply')">-->
+                        <!--<ui-select-match placeholder="请选择发送人">{{$select.selected.realName}}</ui-select-match>-->
+                        <!--<ui-select-choices repeat="item in usersList | filter: $select.search" refresh="refreshUsers($select.search, message.userType,'detail')">-->
+                          <!--<div ng-bind-html="item.realName | highlight: $select.search"></div>-->
+                        <!--</ui-select-choices>-->
+                      <!--</ui-select>-->
+
+                      <ui-select ng-model="reply.user" theme="bootstrap" >
+                        <ui-select-match placeholder="请选择用户">{{$select.selected.realName}}</ui-select-match>
+                        <ui-select-choices repeat="item in usersList">
+                          <div ng-bind-html="item.realName"></div>
+                        </ui-select-choices>
+                      </ui-select>
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>内容</label>
+                    <textarea class="form-control" placeholder="" rows="3" ng-model="reply.content" style="resize: none;"></textarea>
+                  </div>
+                  <!--<div class="form-group">-->
+                  <!--<label>是否发布</label>-->
+                  <!--<label class="checkbox-inline">-->
+                  <!--<input icheck type="checkbox" ng-model="reply.status">-->
+                  <!--</label>-->
+                  <!--</div>-->
+                  <button class="btn btn-primary btn-block" ng-click="saveReply($index)">回复</button>
+                </div>
+
+                <div class="feed-element" ng-repeat="reply in message.replies" style="overflow: visible;">
+                  <a href="" class="pull-left">
+                    <img alt="image" class="img-circle" avatar="{{reply.user.avatar.thumb}}">
+                  </a>
+                  <div class="media-body" style="overflow: visible;">
+                    <div class="pull-right" uib-dropdown style="margin-left: 15px;">
+                      <a uib-dropdown-toggle="" href>
+                        <i class="fa fa-bars"></i>
+                      </a>
+                      <ul uib-dropdown-menu class="m-t-xs">
+                        <li><a href="" ng-click="openEditReplyModal(reply)" ng-controller="ModalController"><i class="fa fa-edit"></i> 编辑</a></li>
+                        <li><a href="" ng-click="deleteReply(outerIndex,$index)"><i class="fa fa-trash-o"></i> 删除</a></li>
+                      </ul>
+                    </div>
+                    <small class="pull-right text-navy">{{reply.dateCreated | interval}}</small>
+                    <strong>{{reply.user.realName || '未命名'}}</strong>
+                    <!--<a class="" ng-click="openEditReplyModal(reply)" ng-controller="ModalController">-->
+                    <!--<small>  编辑</small>-->
+                    <!--<i class="fa fa-edit"></i>-->
+                    <!--</a>-->
+                    <br>
+                    <span>{{reply.content}}</span><br/>
+                    <small class="text-muted">{{reply.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

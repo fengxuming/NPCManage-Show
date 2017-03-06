@@ -1,0 +1,146 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2 ng-if="question._id">编辑问题</h2>
+    <h2 ng-if="!question._id">新增问题</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">主页</a>
+      </li>
+      <li>
+        <a href="" ui-sref="asking.question">列表</a>
+      </li>
+      <li ng-if="question._id">
+        <a href="" ui-sref="asking.question.detail({questionId: question._id})">详情</a>
+      </li>
+      <li class="active" ng-if="question._id">
+        <strong>编辑</strong>
+      </li>
+      <li class="active" ng-if="!question._id">
+        <strong>新建</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row" ng-init="userType = 'user'">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content">
+      <div class="ibox-content forum-post-container">
+
+        <div class="ibox">
+          <div class="ibox-content" style="border-top: 0;padding-top: 0;">
+            <h3></h3>
+            <form name="myForm">
+              <div class="form-group">
+                <label>提问人<span class="warn-red">*</span></label>
+                <ui-select ng-model="quizzer.selected" theme="bootstrap" on-select="selectSender($item)">
+                  <ui-select-match placeholder="请选择提问人">{{$select.selected.realName}}</ui-select-match>
+                  <ui-select-choices repeat="item in robotUsersList | filter: $select.search" refresh="refreshUsers($select.search)">
+                    <div ng-bind-html="item.realName | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <div class="form-group">
+                <label>问题标题 <span class="warn-red">*</span></label>
+                <input type="text" class="form-control" placeholder="请填写问题标题" name="title" ng-model="question.title" required>
+                <div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">
+                  <div ng-message="required">请填写问题标题</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>患者年龄<span class="warn-red">*</span></label>
+                <input type="number" class="form-control" placeholder="请填写患者年龄" min="1" max="200" name="age" ng-model="question.meta.age" required>
+                <div class="error-help" ng-messages="myForm.age.$dirty && myForm.age.$error" role="alert">
+                  <div ng-message="required">请填写患者年龄</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>患者性别<span class="warn-red">*</span></label>
+                <ui-select ng-model="gender.selected" theme="bootstrap" on-select="onSelect($item)">
+                  <ui-select-match placeholder="请选择患者性别">{{$select.selected.label}}</ui-select-match>
+                  <ui-select-choices repeat="item in gender_options | filter: $select.search">
+                    <div ng-bind-html="item.label | highlight: $select.search"></div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <div class="form-group">
+                <label>病情描述</label>
+                <input type="text" class="form-control" placeholder="请填写患者病情描述" name="description" ng-model="question.meta.description" >
+                <div class="error-help" ng-messages="myForm.description.$dirty && myForm.description.$error" role="alert">
+                  <div ng-message="required">请填写患者病情描述</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                  <label class="col-sm-2 control-label">是否曾去医院就医</label>
+                  <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                      <input icheck type="checkbox" ng-model="question.meta.treated">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" ng-if="question.meta.treated">
+                <label>就诊医院+科室</label>
+                <input type="text" class="form-control" placeholder="请填写就诊医院+科室" ng-model="question.meta.hospitalAndOffice">
+              </div>
+              <div class="form-group" ng-if="question.meta.treated">
+                <label>主要检查及结果</label>
+                <input type="text" class="form-control" placeholder="请填写主要检查及结果" ng-model="question.meta.resultOfCheck">
+              </div>
+              <div class="form-group">
+                <label>用药情况</label>
+                <input type="text" class="form-control" placeholder="请填写用药情况" ng-model="question.meta.medicine">
+              </div>
+              <div class="form-group">
+                <label>既往诊疗记录1：何时得过何种疾病</label>
+                <input type="text" class="form-control" placeholder="请填写何时得过何种疾病" ng-model="question.meta.note1">
+              </div>
+              <div class="form-group">
+                <label>既往诊疗记录2：做过何种手术/放化疗</label>
+                <input type="text" class="form-control" placeholder="请填写做过何种手术/放化疗" ng-model="question.meta.note2">
+              </div>
+              <div class="form-group">
+                <label>家族中是否有类似情况</label>
+                <input type="text" class="form-control" placeholder="请填写家族中是否有类似情况" ng-model="question.meta.note3">
+              </div>
+              <div class="form-group">
+                <label>称呼</label>
+                <input type="text" class="form-control" placeholder="请填写称呼" ng-model="question.meta.nickName">
+              </div>
+              <div class="form-group">
+                <label>联系方式：</label>
+                <input type="tel" class="form-control" placeholder="请填写联系方式" ng-model="question.meta.phone">
+              </div>
+
+              <div class="form-group">
+                <label>问题内容<span class="warn-red">*</span></label>
+                <textarea class="form-control" placeholder="" rows="3" ng-model="question.content" name="content" required style="resize: none;"></textarea>
+                <div class="error-help" ng-messages="myForm.content.$dirty && myForm.content.$error" role="alert">
+                  <div ng-message="required">请填写问题内容</div>
+                </div>
+              </div>
+              <div class="form-group" ng-if="question._id&&question.answers.length>0">
+                <div class="row">
+                  <label class="col-sm-2 control-label">是否发布</label>
+                  <div class="col-sm-10">
+                    <label class="checkbox-inline">
+                      <input icheck type="checkbox" ng-model="question.status">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary" type="button" ng-click="saveQuestion()"><i class="fa fa-check"></i>&nbsp;提交</button>
+                <a class="btn btn-white" type="button" ui-sref="asking.question.detail({questionId: question._id})" ng-if="question._id">取消</a>
+                <a class="btn btn-white" type="button" ui-sref="asking.question" ng-if="!question._id">取消</a>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

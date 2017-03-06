@@ -1,0 +1,47 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="profile-element" uib-dropdown>
+                    <a uib-dropdown-toggle="" href>
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">{{main.userName || '未命名'}}</strong>
+                            </span>
+                            <span class="text-muted text-xs block">生命时报
+                              <!--<b class="caret"></b>-->
+                            </span>
+                        </span>
+                    </a>
+                    <!--<ul uib-dropdown-menu class="m-t-xs">-->
+                        <!--<li><a href="" ng-click="logout()">退出登录</a></li>-->
+                    <!--</ul>-->
+
+                </div>
+                <div class="logo-element">
+                    问医
+                </div>
+            </li>
+            <!--<li ui-sref-active="active">-->
+                <!--<a ui-sref="index.main"><i class="fa fa-laptop"></i> <span class="nav-label">Main page</span> </a>-->
+            <!--</li>-->
+
+            <li ui-sref-active="active">
+                <a ui-sref="users.lists"><i class="fa fa-user"></i> <span class="nav-label">用户</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="asking.question"><i class="fa fa-question-circle"></i> <span class="nav-label">问医</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="channel.question"><i class="fa fa-laptop"></i><span class="nav-label">频道</span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="banner.lists"><i class="fa fa-file-image-o"></i> <span class="nav-label">横幅</span></a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="hotWord.lists"><i class="fa fa-file-word-o"></i> <span class="nav-label">热词</span></a>
+            </li>
+
+        </ul>
+    </div>
+</nav>

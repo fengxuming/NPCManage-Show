@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <!-- build:css css/login.min.css -->
+    <link rel="stylesheet" href="app/index.css">
+    <link rel="stylesheet" href="../bower_components/animate.css/animate.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+  <!-- endbuild -->
+</head>
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+  <div>
+    <!--<div>-->
+      <!--<h1 class="logo-name">IN+</h1>-->
+    <!--</div>-->
+    <h3>欢迎来到生命时报</h3>
+    <p>登录</p>
+    <form class="m-t" role="form" method="post"   id="login_form" onsubmit="return false">
+      <div class="form-group">
+        <input type="text" class="form-control" id="username" placeholder="账号" required="">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="password" placeholder="密码" required="">
+      </div>
+      <button type="submit" class="btn btn-primary block full-width m-b" onclick="login()">登录</button>
+      <!--<a ui-sref="forgot_password"><small>Forgot password?</small></a>-->
+      <p class="text-muted text-center"><small>还没有账号？</small></p>
+      <a class="btn btn-sm btn-white btn-block" href="register.html">创建账号</a>
+    </form>
+    <!--<p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>-->
+  </div>
+</div>
+<!-- build:js js/login.min.js -->
+<script src="js/login.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>

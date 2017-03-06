@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>基本资料
+          <!--<small>With custom checbox and radion elements.</small>-->
+        </h5>
+        <!--<div ibox-tools></div>-->
+      </div>
+      <div class="ibox-content">
+        <form method="get" name="myForm" class="form-horizontal">
+          <div class="form-group" ng-if="!user._id">
+            <label class="col-sm-2 control-label"><span class="warn-red">*</span>账号</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="user.username" name="username" required>
+              <div class="error-help" ng-messages="myForm.username.$dirty && myForm.username.$error" role="alert">
+                <div ng-message="required">请填写账号</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" ng-if="!user._id">
+            <label class="col-sm-2 control-label"><span class="warn-red">*</span>密码</label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control" ng-model="user.password" name="password" required>
+              <div class="error-help" ng-messages="myForm.password.$dirty && myForm.password.$error" role="alert">
+                <div ng-message="required">请填写密码</div>
+              </div>
+            </div>
+          </div>
+          <div class="hr-line-dashed" ng-if="!user._id"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="warn-red">*</span>呢称</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="user.realName" name="realName" required>
+              <div class="error-help" ng-messages="myForm.realName.$dirty && myForm.realName.$error" role="alert">
+                <div ng-message="required">请填写呢称</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">性别</label>
+            <div class="col-sm-9">
+              <ui-select ng-model="gender.selected"  theme="bootstrap" on-select="onSelect($item,'gender')">
+                <ui-select-match placeholder="请选择性别">{{$select.selected.label}}</ui-select-match>
+                <ui-select-choices repeat="item in gender_options | filter: $select.search">
+                  <div ng-bind-html="item.label | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">生日</label>
+            <div class="col-sm-9">
+              <div class="input-group date">
+                <!--<input type="text" class="form-control" datepicker-popup="dd.MM.yyyy"-->
+                       <!--ng-model="dt" is-open="opened" min-date="minDate" max-date="'2042-04-02'"-->
+                       <!--datepicker-options="dateOptions" date-disabled="disabled(date, mode)"-->
+                       <!--ng-required="true"-->
+                       <!--current-text="Tonight" clear-text="Reset" close-text="Exit" />-->
+
+
+
+                <!--<input ng-click="open()" type="text" class="form-control" uib-datepicker-popup="{{format}}" show-weeks="false" data-ng-model="user.birthday" -->
+                       <!--id="birthday" is-open="popup.opened" datepicker-options="dateOptions" close-text="关闭"/>-->
+                <input type="text" size="10" class="form-control" data-date-format="yyyy-MM-dd" ng-model="user.birthday"
+                       data-autoclose="1" placeholder="日期" bs-datepicker required>
+
+
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">邮箱</label>
+            <div class="col-sm-9">
+              <input type="email" class="form-control" ng-model="user.email">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">用户类型</label>
+            <div class="col-sm-9">
+              <ui-select ng-model="userType.selected" theme="bootstrap" on-select="onSelect($item,'userType')">
+                <ui-select-match placeholder="请选择用户类型">{{$select.selected.label}}</ui-select-match>
+                <ui-select-choices repeat="item in user_types | filter: $select.search">
+                  <div ng-bind-html="item.label | highlight: $select.search"></div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+          <div class="form-group" ng-if="user.userType === 'doctor'">
+            <label class="col-sm-2 control-label">职位</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="user.meta.title">
+            </div>
+          </div>
+          <div class="form-group" ng-if="user.userType === 'doctor'">
+            <label class="col-sm-2 control-label">技能</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="user.meta.skills">
+            </div>
+          </div>
+          <div class="form-group" ng-if="user.userType === 'doctor'">
+            <label class="col-sm-2 control-label">科室医院</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="user.meta.description">
+            </div>
+          </div>
+          <div class="form-group" ng-if="user.userType === 'doctor'">
+            <label class="col-sm-2 control-label">医生介绍</label>
+            <div class="col-sm-9">
+              <textarea type="text" class="form-control" ng-model="user.meta.info" style="resize: none;"></textarea>
+            </div>
+          </div>
+          <!--<div class="hr-line-dashed"></div>-->
+          <!--<div class="form-group">-->
+            <!--<label class="col-sm-2 control-label">是否上线</label>-->
+            <!--<div class="col-sm-9">-->
+              <!--<label class="checkbox-inline">-->
+                <!--<input icheck type="checkbox" ng-model="user.status">-->
+              <!--</label>-->
+            <!--</div>-->
+          <!--</div>-->
+        </form>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary" type="button" ng-click="saveUser()"><i class="fa fa-check"></i>&nbsp;提交</button>
+        <button class="btn btn-white" type="button" ng-click="closeModal()">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
