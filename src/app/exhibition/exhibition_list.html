@@ -1,0 +1,83 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-8">
+    <h2>由我发起的漫展</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html">主页</a>
+      </li>
+      <li class="active">
+        <strong>列表</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-sm-4">
+    <div class="title-action">
+      <a href="" ui-sref="hotWord.add" class="btn btn-primary btn-sm">新增展子</a>
+    </div>
+  </div>
+
+</div>
+<div>
+
+  <div class="wrapper wrapper-content ng-scope">
+    <div class="row">
+
+      <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+          <div class="col-sm-5">
+
+          </div>
+          <div class="col-sm-4 m-b-xs">
+
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input type="text" placeholder="请输入关键字搜索" class="input-sm form-control" ng-model="q">
+              <span class="input-group-btn">
+                  <button type="button" class="btn btn-sm btn-primary" ng-click="keywordSearch()"> 搜索</button>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-md-3 col-sm-4" ng-repeat="exhibition in exhibitions">
+
+        <div class="ibox">
+          <div class="ibox-content product-box">
+            <div class="product-imitation" style="background-image: url('{{exhibition.coverPath}}');">
+            </div>
+
+            <div class="product-desc" style="height: 67px;">
+              <a ui-sref="exhibitions.detail({exhibitionId: exhibition._id})" class="product-name"> {{exhibition.title | limitTo:20}}</a>
+              <div class="product-desc" style="height: 70px;">
+                <span class="product-price">
+                   #{{exhibition.title}}
+                </span>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="text-right">
+      <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="0" previous-text="上一页" next-text="下一页"></uib-pagination>
+    </div>
+  </div>
+
+  <style>
+    .product-imitation{
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 145px;
+      position: relative;
+      width: 100%;
+    }
+
+  </style>

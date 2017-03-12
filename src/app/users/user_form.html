@@ -1,0 +1,99 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 ng-if="user._id">编辑个人资料</h2>
+        <h2 ng-if="!user._id">新增用户</h2>
+    </div>
+</div>
+<div class="row" ng-init="userType = 'user'">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content">
+            <div class="ibox-content forum-post-container">
+
+                <div class="ibox">
+                    <div class="ibox-content" style="border-top: 0;padding-top: 0;">
+                        <h3></h3>
+                        <form name="myForm">
+                            <div class="form-group">
+                                <label>CN<span class="warn-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="请填写CN" name="CN" ng-model="user.CN" required>
+                                <div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">
+                                    <div ng-message="required">请填写CN</div>
+                                </div>
+                            </div>
+                            <div class="form-group" >
+                                <label>头像<span class="warn-red">*</span></label>
+                                <div style="margin-bottom: 10px" ng-if="user.avatarPath">
+                                    <img width="30%" ng-src="{{user.avatarPath}}">
+                                </div>
+                                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                    <input class="upload" type="file" name="banner_cover" id="banner_cover" style="opacity: 0;width: 100%;height: 30px;cursor: pointer;" nv-file-select uploader="uploader"/>
+                                    <button type="button" class="btn btn-default btn-sm btn-block" style="margin-top: -30px;cursor: pointer;"><i class="fa fa-file-image-o"></i> 上传头像</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>邮箱<span class="warn-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="请填写邮箱" name="email" ng-model="user.email" required>
+                                <div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">
+                                    <div ng-message="required">请填写邮箱</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>联系方式<span class="warn-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="请填联系方式" name="phone" ng-model="user.phone" required>
+                                <div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">
+                                    <div ng-message="required">请填写联系方式</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>性别<span class="warn-red">*</span></label>
+                                <ui-select ng-model="maleSelected" theme="bootstrap" on-select="onSelect($item)">
+                                    <ui-select-match placeholder="请选择性别">{{$select.selected.label}}</ui-select-match>
+                                    <ui-select-choices repeat="item in gender_options | filter: $select.search">
+                                        <div ng-bind-html="item.label | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="form-group">
+                                <label>身份证号码<span class="warn-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="请填写身份证号码" name="idCard" ng-model="user.idCard" required>
+                                <div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">
+                                    <div ng-message="required">请填写身份证号码</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>生日<span class="warn-red">*</span></label>
+                                <div class="input-group date">
+                                    <input type="text" size="10" class="form-control" data-date-format="yyyy-MM-dd" ng-model="user.birth"
+                                           data-autoclose="1" placeholder="日期" bs-datepicker required>
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>地址</label>
+                                <input type="text" class="form-control" placeholder="请填写地址" name="description" ng-model="user.address" >
+                                <div class="error-help" ng-messages="myForm.description.$dirty && myForm.description.$error" role="alert">
+                                    <div ng-message="required">请填写地址</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>QQ</label>
+                                <input type="text" class="form-control" placeholder="请填写QQ" name="description" ng-model="user.QQ" >
+                                <div class="error-help" ng-messages="myForm.description.$dirty && myForm.description.$error" role="alert">
+                                    <div ng-message="required">请填写QQ</div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn btn-primary" type="button" ng-click="saveUser()"><i class="fa fa-check"></i>&nbsp;提交</button>
+                                <a class="btn btn-white" type="button" ui-sref="users.detail({userId:user._id})" ng-if="user._id">取消</a>
+                                <a class="btn btn-white" type="button" ui-sref="index" ng-if="!user._id">取消</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

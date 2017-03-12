@@ -1,153 +1,50 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>个人简介</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="index.html">主页</a>
-            </li>
-
-            <li>
-              <a href="" ui-sref="users.lists">列表</a>
-            </li>
-            <li class="active">
-                <strong>详情</strong>
-            </li>
-        </ol>
+        <h2>个人资料</h2>
     </div>
     <div class="col-lg-2">
 
     </div>
+
 </div>
 <div class="wrapper wrapper-content">
-    <div class="row">
+    <div class="row animated fadeInRight">
         <div class="col-md-4">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>个人信息</h5>
-                    <div class="pull-right" uib-dropdown style="margin-left: 15px;">
-                      <a uib-dropdown-toggle="" href>
-                        <i class="fa fa-bars" style="font-size: 20px;"></i>
-                      </a>
-                      <ul uib-dropdown-menu class="m-t-xs">
-                        <li><a href="" ng-click="openPasswordModal(user._id)" ng-controller="ModalController"><i class="fa fa-edit"></i> 修改密码</a></li>
-                        <li><a href="" ng-click="editStatus(-1)"><i class="fa fa-trash-o"></i> 标记删除</a></li>
-                        <li><a href="" ng-click="editStatus(0)"><i class="fa fa-trash-o"></i> 停止使用</a></li>
-                      </ul>
-                    </div>
+                    <h5>个人资料</h5>
                 </div>
                 <div>
                     <div class="ibox-content no-padding border-left-right">
-                        <!--<img alt="image" class="img-responsive" src="assets/images/patterns/a4.jpg">-->
-
-                      <div class="product-imitation" style="background-image: url('{{user.avatarPath}}');">
-                      </div>
-
-
+                        <img width="100%" alt="image" class="img-responsive" ng-src="{{user.avatarPath}}">
                     </div>
-                    <div class="ibox-content profile-content" ng-if="user.userType === 'doctor'||'edit'||'user'">
+                    <div class="ibox-content profile-content">
+                        <p>ID：{{user._id || '-'}}</p>
+                        <p>CN：{{user.CN || '-'}}</p>
+                        <p>性别：{{{'0':'男','1':'女'}[user.male] || '-'}}</p>
+                        <p>生日：{{user.birth || '-' | date: 'yyyy-MM-dd'}}</p>
+                        <p>邮箱：{{user.email || '-'}}</p>
+                        <p>手机：{{user.phone || '-'}}</p>
+                        <p>身份证：{{user.idCard || '-'}}</p>
+                        <p>地址：{{user.address || '-'}}</p>
+                        <p>QQ：{{user.QQ || '-'}}</p>
 
-                      <p>{{user.meta.description || '-'}}</p>
-                      <p>ID：{{user._id || '-'}}</p>
-                      <p>呢称：{{user.realName || '-'}}</p>
-                      <p>性别：{{{'0':'先生','1':'女士'}[user.gender] || '-'}}</p>
-                      <p>生日：{{user.birthday || '-' | date: 'yyyy-MM-dd'}}</p>
-                      <p>邮件：{{user.email || '-'}}</p>
-                      <p ng-if="user.userType === 'doctor'">职位：{{user.meta.title || '-'}}</p>
-                      <p ng-if="user.userType === 'doctor'">技能：{{user.meta.skills || '-' | splitArr}}</p>
-                      <p ng-if="user.userType === 'doctor'">科室医院：{{user.meta.description || '-'}}</p>
-                      <p ng-if="user.userType === 'doctor'">医生介绍：{{user.meta.info || '-'}}</p>
-
-                      <div class="user-button" style="margin-top: 20px;">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-sm btn-block" ng-click="openEditModal(user)" ng-controller="ModalController"><i class="fa fa-edit"></i> 编辑资料</button>
-                          </div>
-                          <div class="col-md-6">
-                            <input class="upload" type="file" name="banner_cover" id="banner_cover" style="opacity: 0;width: 100%;height: 30px;cursor: pointer;" nv-file-select uploader="uploader"/>
-                            <button type="button" class="btn btn-default btn-sm btn-block" style="margin-top: -30px;cursor: pointer;"><i class="fa fa-file-image-o"></i> 上传头像</button>
-                          </div>
-                        </div>
-                      </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="col-md-8">
-            <div class="ibox float-e-margins" ng-if="user.userType === 'doctor'||user.userType ==='edit' && channelsList.length > 0">
-                <div class="ibox-title">
-                    <h5>我的频道</h5>
-                </div>
-                <div class="ibox-content">
-                    <div>
-                        <div class="feed-activity-list">
-                            <div class="feed-element" ng-class="{'active': channel.status === 1}" ng-repeat="channel in channelsList">
-                                <div class="media-body ">
-                                    <small class="pull-right text-navy">{{channel.dateCreated | date:'yyyy-MM-dd HH:mm'}}</small>
-                                    <strong><a ui-sref="channel.question.detail({channelId:channel._id})">{{channel.title}}</a></strong><br>
-                                  <small class="text-muted">{{channel.startDate| date:'yyyy-MM-dd HH:mm'}} - {{channel.endDate| date:'yyyy-MM-dd HH:mm'}}</small>
+                        <div class="user-button" style="margin-top: 20px;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-sm btn-block" ng-click="userEdit(user._id)"><i class="fa fa-edit"></i> 编辑资料</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="upload" type="file" name="banner_cover" id="banner_cover" style="opacity: 0;width: 100%;height: 30px;cursor: pointer;" nv-file-select uploader="uploader"/>
+                                    <button type="button" class="btn btn-default btn-sm btn-block" style="margin-top: -30px;cursor: pointer;"><i class="fa fa-file-image-o"></i> 上传头像</button>
                                 </div>
                             </div>
-                        <!--<button class="btn btn-primary btn-block m" ng-click="showMore()" ng-if="channelsList.length == 5"><i class="fa fa-arrow-down"></i> 查看更多</button>-->
+                        </div>
                     </div>
-                  </div>
+                    </div>
                 </div>
-            </div >
-
-            <div class="ibox float-e-margins" ng-if="user.userType === 'doctor' && answersList.length > 0">
-            <div class="ibox-title">
-              <h5>我的回答</h5>
             </div>
-            <div class="ibox-content">
-              <div>
-                <div class="feed-activity-list" >
-                  <div class="feed-element" ng-repeat="answer in answersList">
-                    <div class="media-body ">
-                      <small class="pull-right text-navy">{{answer.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</small>
-                      <strong><a ui-sref="asking.question.detail({questionId:answer.question._id})">{{answer.content}}</a></strong> <br>
-                      <div class="well">
-                       <strong>问题:</strong> {{answer.question.content}}
-                      </div>
-                    </div>
-                  </div>
-                <!--<button class="btn btn-primary btn-block m" ng-click="showMore2()" ng-if="answersList.length == 5"><i class="fa fa-arrow-down"></i> 查看更多</button>-->
-              </div>
-            </div>
-          </div>
         </div>
-          <div class="ibox float-e-margins" ng-if="user.userType === 'user' && questionList.length > 0">
-            <div class="ibox-title">
-              <h5>我的问题</h5>
-            </div>
-            <div class="ibox-content">
-              <div>
-                <div class="feed-activity-list" >
-                  <div class="feed-element" ng-repeat="question in questionList">
-                    <div class="media-body ">
-                      <small class="pull-right text-navy">{{question.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</small>
-                      <strong><a ui-sref="asking.question.detail({questionId:question._id})">{{question.content}}</a></strong> <br>
-                      <div class="well" ng-repeat="answer in question.answers">
-                        <strong>回答:</strong> {{answer.content}}
-                      </div>
-                    </div>
-                  </div>
-                  <!--<button class="btn btn-primary btn-block m" ng-click="showMore3()" ng-if="questionList.length == 5"><i class="fa fa-arrow-down"></i> 查看更多</button>-->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    <div>
-</div>
-</div>
-</div>
-<style>
-    .product-imitation{
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      height: 145px;
-      position: relative;
-      width: 100%;
-      }
 
-</style>
+    </div>
+</div>

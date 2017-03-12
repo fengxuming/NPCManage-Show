@@ -74,6 +74,21 @@
           }
         }
       })
+      .state('exhibitions', {
+        abstract: true,
+        url: "/exhibitions",
+        templateUrl: "app/components/common/content.html"
+      })
+      .state('exhibitions.lists', {
+        url: "/lists",
+        templateUrl: "app/exhibition/exhibition_list.html",
+        controller: 'ExhibitionListController'
+      })
+        .state('exhibitions.detail', {
+          url: "/detail/:exhibitionId",
+          templateUrl: "app/exhibition/exhibition_detail.html",
+          controller: 'ExhibitionFormController'
+        })
 
 
       //问医

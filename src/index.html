@@ -2,7 +2,7 @@
 <html ng-app="inspinia">
   <head>
     <meta charset="utf-8">
-    <title>生命时报</title>
+    <title>NCP管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="../bower_components/AngularJS-Toaster/toaster.min.css">
     <link rel="stylesheet" href="app/plugins/icheck.css">
     <link rel="stylesheet" href="../bower_components/angular-datepicker/dist/angular-datepicker.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bower_components/animate.css/animate.css">
     <!-- endbuild -->
 
 
@@ -38,7 +40,7 @@
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/moment/moment.js"></script>
     <script src="../bower_components/angular-aria/angular-aria.js"></script>
-    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../bower_components/bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
     <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="../bower_components/angular-messages/angular-messages.js"></script>
     <script src="../bower_components/angular-mocks/angular-mocks.js"></script>
@@ -58,6 +60,32 @@
     <script src="../bower_components/AngularJS-Toaster/toaster.min.js"></script>
     <script src="../bower_components/angular-datepicker/dist/angular-datepicker.js"></script>
     <script src="../bower_components/ngLocale/angular-locale_zh-cn.js"></script>
+
+    <script src="../bower_components/plugins/flot/jquery.flot.js"></script>
+    <script src="../bower_components/plugins/chartJs/Chart.min.js"></script>
+    <script src="../bower_components/plugins/chartJs/angles.js"></script>
+    <script src="../bower_components/plugins/peity/jquery.peity.min.js"></script>
+    <script src="../bower_components/plugins/peity/angular-peity.js"></script>
+    <script src="../bower_components/plugins/flot/jquery.flot.time.js"></script>
+    <script src="../bower_components/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="../bower_components/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="../bower_components/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="../bower_components/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="../bower_components/plugins/flot/curvedLines.js"></script>
+    <script src="../bower_components/plugins/flot/angular-flot.js"></script>
+    <script src="../bower_components/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="../bower_components/plugins/fullcalendar/calendar.js"></script>
+    <script src="../bower_components/plugins/jquery-ui/jquery-ui.js"></script>
+
+    <script src="../bower_components/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../bower_components/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../bower_components/plugins/pace/pace.min.js"></script>
+    <script src="../bower_components/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+
+
+
+
+
     <!-- endbuild -->
 
     <!-- build:js js/lifetime.min.js -->
@@ -75,6 +103,7 @@
     <script src="js/controller/question.controller.js"></script>
     <script src="js/controller/channel.controller.js"></script>
     <script src="js/controller/banner.controller.js"></script>
+    <script src="js/controller/exhibition.controller.js"></script>
     <script src="js/directive/directives.js"></script>
     <script src="app/plugins/icheck.min.js"></script>
     <script src="js/filters.js"></script>

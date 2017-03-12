@@ -37,9 +37,8 @@ var action = {
     withCredentials: true
   }
 };
-// var API_END_POINT = 'http://localhost:3000';
-// var API_END_POINT = 'http://www.wolaianpai.com:3000';
-var API_END_POINT ="";
+var API_END_POINT = 'http://localhost:3000';
+
 
 ;(function () {
   angular
@@ -47,27 +46,25 @@ var API_END_POINT ="";
     .factory('User', function ($resource) {
       return $resource(API_END_POINT + "/users/:id", null, action);
     })
-    .factory('Question', function ($resource) {
-      return $resource(API_END_POINT + "/questions/:id", null, action);
+    .factory('Application', function ($resource) {
+      return $resource(API_END_POINT + "/applications/:id", null, action);
     })
-    .factory('Answer', function ($resource) {
-      return $resource(API_END_POINT + "/answers/:id", null, action);
+    .factory('Exhibition', function ($resource) {
+      return $resource(API_END_POINT + "/exhibitions/:id", null, action);
     })
     .factory('Message', function ($resource) {
       return $resource(API_END_POINT + "/messages/:id", null, action);
     })
-    .factory('Channel', function ($resource) {
-      return $resource(API_END_POINT + "/channels/:id", null, action);
+    .factory('Part', function ($resource) {
+      return $resource(API_END_POINT + "/parts/:id", null, action);
     })
-    .factory('Reply', function ($resource) {
-      return $resource(API_END_POINT + "/replies/:id", null, action);
+    .factory('Discuss', function ($resource) {
+      return $resource(API_END_POINT + "/discusses/:id", null, action);
     })
-    .factory('Banner', function ($resource) {
-      return $resource(API_END_POINT + "/banners/:id", null, action);
+    .factory('Note', function ($resource) {
+      return $resource(API_END_POINT + "/notes/:id", null, action);
     })
-    .factory('HotWord', function ($resource) {
-      return $resource(API_END_POINT + "/hotWords/:id", null, action);
-    })
+
   .factory('uploaderService', function(FileUploader,$window){
     return {
       buildUploader:buildUploader

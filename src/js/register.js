@@ -2,11 +2,10 @@ function register() {
   var loginData = {};
   loginData.username = document.getElementById('username').value;
   loginData.password = document.getElementById('password').value;
-  loginData.realName = document.getElementById("realName").value;
-  loginData.passwordagain = document.getElementById("passwordagain").value;
+  loginData.CN = document.getElementById("realName").value;
+  // loginData.passwordagain = document.getElementById("passwordagain").value;
   ajax({
-    // url: "http://localhost:3000/api/register",              //请求地址
-    url: "http://www.wolaianpai.com:3000/api/register",
+    url: "http://localhost:3000/api/register",
     type: "post",                       //请求方式
     data: loginData,
     dataType: "json",

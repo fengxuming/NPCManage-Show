@@ -63,103 +63,69 @@ angular.module('inspinia')
 
     }
   })
-  .controller('UserDetailController', function ($scope, User,Channel,Answer,Question, $stateParams,$state, Statuses,uploaderService) {
-    //返回user信息
+  .controller('UserDetailController', function ($scope, User,$stateParams,$state, Statuses,uploaderService,GenderOptions) {
+
+
     var id = $stateParams.userId;
     if(id){
       var params = {};
       params.id = id;
       User.get(params, function (data){
-        if(data){
-          if(data.status === 1){
-            data.status = true;
-          }
-          $scope.user = data;
-          if($scope.user.userType == 'editor'){
-            reloadChannels();
-          }else if($scope.user.userType == 'doctor'){
-            reloadChannels();
-            reloadAnswers();
-          }else if($scope.user.userType == 'user'){
-            reloadQuestions()
-          }
-          if($scope.user.birthday){
-            $scope.user.birthday = new Date($scope.user.birthday);
-          }
-          if($scope.user.avatar && $scope.user.avatar.path){
-            $scope.user.avatarPath = API_END_POINT_temp + "/" +$scope.user.avatar.path.replace('public','');
-          }else{
-            $scope.user.avatarPath = "";
-          }
-
+        $scope.user = data;
+        $scope.maleSelected = showGender(data.male);
+        if($scope.user.avatar && $scope.user.avatar.path){
+          $scope.user.avatarPath = API_END_POINT + "/" +$scope.user.avatar.path.replace('public','');
+        }else{
+          $scope.user.avatarPath = "";
         }
+
       })
     }
+    $scope.gender_options = GenderOptions;
+    $scope.userEdit= userEdit;
+    $scope.onSelect = onSelect;
+    $scope.saveUser = saveUser;
 
-    //返回channel信息
-    var queryParams = {};
-    queryParams.status = 1;
-    queryParams.user =$stateParams.userId;
-    // function showMore()
-    // {
-    //   queryParams.maxSize = 5 ;
-    //   queryParams.offset = $scope.offset+queryParams.maxSize;
-    //   $scope.offset = queryParams.offset;
-    //   reloadChannels();
-    // }
-    function reloadChannels(){
-      Channel.query(queryParams, {seq: (new Date()).getTime()}, function (data) {
-        if (data) {
-          $scope.channelsList = data;
-          if(data.length < $scope.maxSize){
-            $scope.totalItems = (($scope.currentPage - 1) + data.length/$scope.maxSize)*10;
-          }
+
+    function userEdit(Id) {
+      $state.go('users.edit',{userId:Id});
+    }
+    function showGender(gender) {
+      var list = GenderOptions;
+      for(var i = 0; i <= list.length; i++){
+        if(list[i].value == gender){
+          return list[i]
         }
-      });
+      }
+    }
+    function onSelect(item) {
+      $scope.user.male = item.value;
+    }
+    function saveUser() {
+      if($scope.myForm.$valid){
+        var userParams = $scope.user;
+        if(userParams._id){
+          User.update({id:userParams._id},userParams,function (data) {
+            if (data){
+              $scope.user = data;
+              $state.go('users.detail',{userId: data._id})
+            }
+          })
+        }else {
+          User.save(userParams,function (data) {
+            if (data._id){
+              $state.go('users.detail',{userId:data._id});
+            }
+          })
+        }
+      }else {
+        swal({
+          title: "<small>请完善信息再提交！</small>",
+          html: true
+        })
+      }
     }
 
-    //返回answers信息
-    var queryParams2 = {};
-    queryParams2.user =$stateParams.userId;
-    function showMore2()
-    {
-      queryParams2.maxSize = 5 ;
-      queryParams2.offset = $scope.offset2+queryParams2.maxSize;
-      $scope.offset2 = queryParams2.offset;
-      reloadAnswers();
-    }
-    function reloadAnswers(){
-      Answer.query(queryParams2, {seq: (new Date()).getTime()}, function (data) {
-        if (data) {
-          $scope.answersList = data;
-          if(data.length < $scope.maxSize){
-            $scope.totalItems = (($scope.currentPage - 1) + data.length/$scope.maxSize)*10;
-          }
-        }
-      });
-    }
-
-    //返回questions信息
-    var queryParams3 = {};
-    queryParams3.status = 1;
-    queryParams3.user =$stateParams.userId;
-    // function showMore3()
-    // {
-    //   queryParams3.maxSize = 5 ;
-    //   queryParams3.offset = $scope.offset2+queryParams3.maxSize;
-    //   $scope.offset2 = queryParams3.offset;
-    //   reloadQuestions();
-    // }
-    function reloadQuestions(){
-      Question.query(queryParams3, {seq: (new Date()).getTime()}, function (data) {
-        if (data) {
-          $scope.questionList = data;
-          if(data.length < $scope.maxSize){
-            $scope.totalItems = (($scope.currentPage - 1) + data.length/$scope.maxSize)*10;
-          }
-        }
-      });
-    }
     //标记删除和停止使用
     $scope.editStatus = function (status) {
       var _user = {};
@@ -196,7 +162,8 @@ angular.module('inspinia')
       $scope.uploader.removeAfterUpload = true;
       var _user = {};
       _user.avatar = data._id;
-      $scope.user.avatarPath = API_END_POINT_temp + "/" + data.path.replace('public','');
+      $scope.user.avatarPath = API_END_POINT + "/" + data.path.replace('public','');
+      $scope.user.avatar =data._id;
       User.update({id:id},_user, function (data){
       })
     });

@@ -26,7 +26,7 @@ function HttpInterceptor($q, $window) {
     // 返回的响应出错，包括后端返回响应时，设置了非 200 的 http 状态码
     responseError: function(err){
       if(err.status === 401){
-        $window.location.href = 'login.html';
+        // $window.location.href = 'login.html';
       }
       return $q.reject(err);
     }

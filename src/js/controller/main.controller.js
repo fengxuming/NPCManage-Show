@@ -3,9 +3,14 @@
 angular.module('inspinia')
   .controller('MainController', function (UserInfo, $scope, $window) {
     var vm = this;
-    vm.userName = UserInfo.realName;
+    vm.user = UserInfo.user;
+    $scope.user = UserInfo;
+    if($scope.user.avatar && $scope.user.avatar.path){
+        $scope.user.avatarPath = API_END_POINT + "/" +$scope.user.avatar.path.replace('public','');
+    }else{
+        $scope.user.avatarPath = "";
+    }
     $scope.logout = logout;
-
     function logout() {
       swal({
         title: "<small>确定退出登录吗？</small>",
@@ -18,7 +23,7 @@ angular.module('inspinia')
         html: true
       }, function(){
         $window.localStorage.clear();
-        $window.location.href = 'login.html';
+        $window.location.href = 'index.html';
       });
     }
   });

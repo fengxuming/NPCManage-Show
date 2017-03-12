@@ -19,7 +19,7 @@
 
 
     </div>
-    <h3>生命时报</h3>
+    <h3>NPC申请</h3>
     <p>创建账号</p>
     <form class="m-t" role="form"  method="post" onsubmit="return false" name="registerForm" novalidate>
 
@@ -39,10 +39,10 @@
 
       <div id="realName-group">
         <input type="text" class="form-control" ng-model="realName" name="realName" id="realName" ng-focus="realNameFlag=true" ng-blur="realNameFlag=false"
-               placeholder="请输入呢称..." required  >
+               placeholder="请输入CN..." required  >
         <p >
                     <span style="color: red" ng-show="registerForm.realName.$invalid" >
-                        <span ng-show="realNameFlag==false">*请输入呢称</span>
+                        <span ng-show="realNameFlag==false">*请输入CN</span>
                     </span>
         </p>
 

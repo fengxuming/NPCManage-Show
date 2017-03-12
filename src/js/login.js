@@ -4,8 +4,7 @@ function login() {
   loginData.username = document.getElementById('username').value;
   loginData.password = document.getElementById('password').value;
   ajax({
-    // url: "http://www.wolaianpai.com:3000/api/login",              //请求地址
-    url: "/api/login",              //请求地址
+    url: "http://localhost:3000/api/login",              //请求地址
     type: "POST",                       //请求方式
     data: loginData,
     dataType: "json",
@@ -20,14 +19,14 @@ function login() {
           }
           window.location.href = "index.html";
         } else {
-          window.location.href = 'login.html';
+          // window.location.href = 'login.html';
         }
       } catch (e) {
-        window.location.href = "login.html";
+        // window.location.href = "login.html";
       }
     },
     fail: function () {
-      window.location.href = "login.html";
+      // window.location.href = "login.html";
     }
   });
 }

@@ -9,8 +9,9 @@ function UserInfo($window) {
   var userInfo = {};
   if($window.localStorage.userInfo){
     userInfo = JSON.parse($window.localStorage.userInfo);
-  }else {
-    $window.location.href = 'login.html';
   }
+  // else {
+  //   $window.location.href = 'login.html';
+  // }
   return userInfo
 }

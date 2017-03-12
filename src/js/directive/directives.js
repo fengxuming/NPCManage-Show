@@ -605,9 +605,8 @@ function avatar() {
 }
 
 
-// var API_END_POINT = 'http://www.wolaianpai.com:3000';
-var API_END_POINT_temp = 'http://qa.vivame.net.cn';
-var API_END_POINT="";
+
+var API_END_POINT="http://localhost:3000";
 
 /**
  *
