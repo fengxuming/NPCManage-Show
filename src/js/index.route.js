@@ -84,11 +84,27 @@
         templateUrl: "app/exhibition/exhibition_list.html",
         controller: 'ExhibitionListController'
       })
-        .state('exhibitions.detail', {
-          url: "/detail/:exhibitionId",
-          templateUrl: "app/exhibition/exhibition_detail.html",
-          controller: 'ExhibitionFormController'
-        })
+      .state('exhibitions.detail', {
+        url: "/detail/:exhibitionId",
+        templateUrl: "app/exhibition/exhibition_detail.html",
+        controller: 'ExhibitionFormController'
+      })
+      .state('audits', {
+        abstract: true,
+        url: "/audits",
+        templateUrl: "app/components/common/content.html"
+      })
+      .state('audits.lists', {
+        url: "/lists",
+        templateUrl: "app/audit/audit_list.html",
+        controller: 'AuditListController'
+      })
+      .state('audits.detail', {
+        url: "/detail/:applicationId",
+        templateUrl: "app/audit/audit_detail.html",
+        controller: 'AuditDetailController'
+      })
+
 
 
       //问医

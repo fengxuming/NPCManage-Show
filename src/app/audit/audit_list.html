@@ -1,21 +1,7 @@
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-sm-8">
     <h2>
-      用户
-      <!--<span ng-if="userType === 'user'">用户-->
-        <!--<a href="" ng-click="openAddModal('user')" ng-controller="ModalController">-->
-        <!--<span style="color: #18a689;">-->
-        <!--<i class="fa fa-plus"></i>-->
-        <!--</span>-->
-      <!--</a>-->
-      <!--</span>-->
-      <!--<span ng-if="userType === 'editor'">编辑-->
-        <!--<a href="" ng-click="openAddModal('editor')" ng-controller="ModalController">-->
-        <!--<span style="color: #18a689;">-->
-        <!--<i class="fa fa-plus"></i>-->
-        <!--</span>-->
-      <!--</a>-->
-      <!--</span>-->
+      申请的NPC列表
     </h2>
     <ol class="breadcrumb">
       <li>
@@ -45,7 +31,7 @@
         <div class="ibox-content">
           <div class="row">
             <div class="col-sm-5 m-b-xs">
-              <button type="button" class="btn btn-default" ng-model="userType" data-html="1" data-toggle="true" placeholder="请选择用户类型" bs-options="type.value as type.label for type in types" bs-select>
+              <button type="button" class="btn btn-default" ng-model="exhibition" data-html="1" data-toggle="true" placeholder="请选择展会" bs-options="exhibition._id as exhibition.title for exhibition in exhibitions" bs-select>
                 Action <span class="caret"></span>
               </button>
             </div>
@@ -67,33 +53,33 @@
           </div>
           <div class="table-responsive">
             <table class="table table-striped">
-              <thead ng-if="userList.length > 0">
+              <thead>
               <tr>
-                <th>账号</th>
-                <th>呢称</th>
+                <th>CN</th>
                 <th>性别</th>
+                <th>QQ</th>
                 <th>邮箱</th>
                 <th>生日</th>
-                <!--<th>描述</th>-->
+                <th>地址</th>
                 <th></th>
               </tr>
               </thead>
               <tbody>
-              <tr ng-repeat="user in userList">
+              <tr ng-repeat="application in applicationList">
                 <td>
-                  {{user.username}}
+                  {{application.applicant.CN}}
                 </td>
                 <td>
-                  {{user.realName}}
+                  {{{'0':'男','1':'女'}[application.applicant.male]}}
                 </td>
-                <td>{{{'0':'先生','1':'女士'}[user.gender]}}</td>
-                <td>{{user.email}}</td>
+                <td>{{application.applicant.QQ}}</td>
+                <td>{{application.applicant.email}}</td>
                 <td>
-                  {{user.birthday | date:'yyyy年MM月dd日'}}
+                  {{application.applicant.birth | date:'yyyy年MM月dd日'}}
                 </td>
-                <!--<td>{{user.meta.description | limitTo:20}}</td>-->
+                <td>{{application.applicant.address}}</td>
                 <td>
-                  <a ui-sref="users.detail({userId: user._id})">
+                  <a ui-sref="audits.detail({applicationId: application._id})">
                     <i class="fa fa-bars"></i>
                   </a>
                 </td>

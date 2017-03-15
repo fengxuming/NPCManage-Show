@@ -1,0 +1,141 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>申请信息</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">主页</a>
+            </li>
+            <li>
+                <a>列表</a>
+            </li>
+            <li class="active">
+                <strong>详情</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-md-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>个人资料</h5>
+                </div>
+                <div>
+                    <div class="ibox-content no-padding border-left-right">
+                        <img width="100%" alt="image" class="img-responsive" ng-src="{{application.applicant.avatarPath}}">
+                    </div>
+                    <div class="ibox-content profile-content">
+                        <p>ID：{{application.applicant._id || '-'}}</p>
+                        <p>CN：{{application.applicant.CN || '-'}}</p>
+                        <p>性别：{{{'0':'男','1':'女'}[application.applicant.male] || '-'}}</p>
+                        <p>生日：{{application.applicant.birth || '-' | date: 'yyyy-MM-dd'}}</p>
+                        <p>邮箱：{{application.applicant.email || '-'}}</p>
+                        <p>手机：{{application.applicant.phone || '-'}}</p>
+                        <p>身份证：{{application.applicant.idCard || '-'}}</p>
+                        <p>地址：{{application.applicant.address || '-'}}</p>
+                        <p>QQ：{{application.applicant.QQ || '-'}}</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="checkbox-inline">
+                                <input icheck type="checkbox" ng-model="isPass">
+                            </label>
+                            <label>是否通过</label>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary btn-xs" type="button" ng-click="saveUser()"><i class="fa fa-check"></i>&nbsp;提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins" ng-if="isPass">
+                <div class="ibox-title">
+                    <h5>选择分组</h5>
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <ui-select ng-model="maleSelected" theme="bootstrap" on-select="onSelect($item)">
+                        <ui-select-match placeholder="请选择分组">{{$select.selected.label}}</ui-select-match>
+                        <ui-select-choices repeat="item in gender_options | filter: $select.search">
+                            <div ng-bind-html="item.label | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="col-md-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>NPC经验和建议</h5>
+                    <div ibox-tools></div>
+                </div>
+                <slick infinite="true" speed="500" fade="true" cssEase="linear" adaptiveHeight="true">
+                    <div>
+                        <div class="ibox-content">
+                            <h2>NPC经验</h2>
+                            {{application.NPCexperience}}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="ibox-content">
+                            <h2>感想和建议</h2>
+                            {{application.advice}}
+                        </div>
+                    </div>
+
+                </slick>
+
+            </div>
+
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>技能与特长</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <div class="alert alert-success" ng-repeat="skill in application.skills">
+                        {{skill}}
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>期望的分组</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <span class="btn btn-info btn-rounded">Information</span>
+                    <span class="btn btn-info btn-rounded">Information</span>
+                    <span class="btn btn-info btn-rounded">Information</span>
+                    <span class="btn btn-info btn-rounded">Information</span>
+                    <span class="btn btn-info btn-rounded">Information</span>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

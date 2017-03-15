@@ -19,14 +19,14 @@ function login() {
           }
           window.location.href = "index.html";
         } else {
-          // window.location.href = 'login.html';
+          window.location.href = 'login.html';
         }
       } catch (e) {
-        // window.location.href = "login.html";
+        window.location.href = "login.html";
       }
     },
     fail: function () {
-      // window.location.href = "login.html";
+      window.location.href = "login.html";
     }
   });
 }

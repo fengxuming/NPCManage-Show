@@ -24,6 +24,7 @@
     "sweetalert": "^1.1.3",
     "AngularJS-Toaster": "angularjs-toaster#^2.1.0",
     "angular-datepicker": "^2.0.3",
+    "ng-tags-input": "^3.1.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.0"
@@ -52,6 +53,6 @@
   },
   "resolutions": {
     "jquery": "~2.1.4",
-    "angular": "~1.5.0"
+    "angular": "~1.3.0"
   }
 }
