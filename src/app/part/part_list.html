@@ -1,0 +1,71 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-8">
+        <h2>
+            NPC分组
+        </h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">主页</a>
+            </li>
+            <li class="active">
+                <strong>分组</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-5 m-b-xs">
+                <button type="button" class="btn btn-default" ng-model="exhibition" data-html="1" data-toggle="true" placeholder="请选择展会" bs-options="exhibition._id as exhibition.title for exhibition in exhibitions" bs-select>
+                    Action <span class="caret"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class='contentWrapper ng-cloak'>
+                    <div class='content'>
+                        <div class="row-fluid">
+                            <ul class="thumbnails">
+                                <li class="span3" style='margin-left:10px;' ng-repeat="part in parts">
+                                    {{part.name}}
+                                    <div class="thumbnail" data-drop="true" ng-model='part.list'   jqyoui-droppable="{multiple:true}">
+                                        <div class="caption">
+                                            <div class="btn btn-info btn-draggable" ng-repeat="item in part.list" ng-show="item.applicant.CN" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="part.list"
+                                                 jqyoui-draggable="{index: {{$index}},animate:true}">{{item.applicant.CN}}</div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="navbar-inner">
+                    <div class="btn btn-droppable" ng-repeat="item in applicationList" data-drop="true" ng-model='applicationList' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=applicationList])'}"  jqyoui-droppable="{index: {{$index}}}">
+                        <div class="btn btn-info btn-draggable" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="applicationList"
+                             jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}" ng-hide="!item.applicant.CN">{{item.applicant.CN}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <button class="btn btn-primary " type="button" ng-click="saveParts()"><i class="fa fa-check"></i>保存</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+    .thumbnail { height: 150px !important; }
+    .btn-droppable { width: 80px; height: 30px; padding-left: 4px; }
+    .btn-draggable { width: 60px; }
+</style>

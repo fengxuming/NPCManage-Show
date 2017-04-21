@@ -20,6 +20,13 @@
                                     <div ng-message="required">请填写CN</div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>姓名<span class="warn-red">*</span></label>
+                                <input type="text" class="form-control" placeholder="请填写姓名" name="CN" ng-model="user.realName" required>
+                                <div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">
+                                    <div ng-message="required">请填写姓名</div>
+                                </div>
+                            </div>
                             <div class="form-group" >
                                 <label>头像<span class="warn-red">*</span></label>
                                 <div style="margin-bottom: 10px" ng-if="user.avatarPath">

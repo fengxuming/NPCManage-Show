@@ -1,0 +1,144 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2 ng-if="exhibition._id">编辑展子</h2>
+    <h2 ng-if="!exhibition._id">新增展子</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="index.html" >主页</a>
+      </li>
+      <li>
+        <a href="" ui-sref="channel.question">列表</a>
+      </li>
+      <li ng-if="exhibition._id">
+        <a href="" ui-sref="exhibitions.detail({exhibitionId: exhibition._id})">详情</a>
+      </li>
+      <li class="active" ng-if="exhibition._id">
+        <strong>编辑</strong>
+      </li>
+      <li class="active" ng-if="!exhibition._id">
+        <strong>新建</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-7">
+    <div class="wrapper wrapper-content">
+      <div class="ibox-content forum-post-container">
+
+        <div class="ibox">
+          <div class="ibox-content" style="border-top: 0;padding-top: 0;">
+            <h3></h3>
+            <form name="myForm">
+              <div class="form-group">
+                <label>展子标题 <span class="warn-red">*</span></label>
+                <input type="text" class="form-control" placeholder="请填写展子标题" ng-model="exhibition.title" name="title" required="">
+                <div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">
+                  <div ng-message="required">请填写展子标题</div>
+                </div>
+              </div>
+              <div class="form-group" >
+                <label>展子封面 <span class="warn-red">*</span></label>
+                <div class="col-sm-12">
+                  <div style="margin-bottom: 5px" ng-if="exhibition.coverPath">
+                    <img width="70%" ng-src="{{exhibition.coverPath}}">
+                  </div>
+                  <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                    <input class="upload" type="file" name="exhibition_cover" id="exhibition_cover" style="opacity: 0;width: 100%;height: 30px;cursor: pointer;" nv-file-select uploader="uploader"/>
+                    <button class="btn btn-outline btn-primary" style="margin-top: -30px;cursor: pointer;" type="button">&nbsp;上传图片</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>开始时间 <span class="warn-red">*</span></label>
+                <div class="row">
+                  <div class="form-group col-xs-6">
+                    <input type="text" size="10" class="form-control" data-date-format="yyyy-MM-dd"  ng-model="exhibition.beginDate" name="beginDate" data-autoclose="1" placeholder="日期" bs-datepicker required>
+                    <div class="error-help" ng-messages="myForm.startDate.$dirty && myForm.startDate.$error" role="alert">
+                      <div ng-message="required">请填写展子开始时间</div>
+                    </div>
+                  </div>
+                </div>
+                <!--<input type="date" class="form-control" placeholder="请填写开始时间" ng-model="channel.startDate">-->
+              </div>
+              <div class="form-group">
+                <label>结束时间 <span class="warn-red">*</span></label>
+                <div class="row">
+                  <div class="form-group col-xs-6">
+                    <input type="text" size="10" class="form-control" data-date-format="yyyy-MM-dd" ng-model="exhibition.endDate" name="endDate" data-autoclose="1" placeholder="日期" bs-datepicker required>
+                    <div class="error-help" ng-messages="myForm.endDate.$dirty && myForm.endDate.$error" role="alert">
+                      <div ng-message="required">请填写展子结束时间</div>
+                    </div>
+                  </div>
+                </div>
+                <!--<input type="date" class="form-control" placeholder="请填写结束时间" ng-model="channel.endDate">-->
+              </div>
+
+              <div class="form-group">
+                <label>展子简介 <span class="warn-red">*</span></label>
+                <textarea class="form-control" placeholder="" rows="3" name="content" ng-model="exhibition.info"  style="resize: none;" required></textarea>
+                <div class="error-help" ng-messages="myForm.content.$dirty && myForm.content.$error" role="alert">
+                  <div ng-message="required">请填写展子简介</div>
+                </div>
+              </div>
+
+            </form>
+            <!--<button class="btn btn-primary btn-block">发送</button>-->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+
+    <div class="wrapper wrapper-content">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>选择要添加的分组</h5>
+          <!--<div class="pull-right" uib-dropdown style="margin-left: 15px;">-->
+            <!--<a uib-dropdown-toggle="" href>-->
+              <!--<i class="fa fa-bars" style="font-size: 20px;"></i>-->
+            <!--</a>-->
+
+            <!--<ul uib-dropdown-menu class="m-t-xs">-->
+              <!--<li><a  ><i class="fa fa-edit" ng-click="openPasswordModal(id)" ng-controller="ModalController"></i>增加新的分组</a></li>-->
+
+            <!--</ul>-->
+          <!--</div>-->
+        </div>
+        <div class="ibox-content">
+          {{flag}}
+          <div ng-repeat="part in parts"><label> <input ng-model="part.selected"  icheck type="checkbox">{{part.name}}</label></div>
+          <div class="chat-form">
+            <form role="form">
+              <div class="form-group">
+                <textarea class="form-control" placeholder="添加分组" ng-model="partOfAdd"></textarea>
+              </div>
+              <div class="text-right">
+                <button type="submit" ng-click="addPart()" class="btn btn-sm btn-primary m-t-n-xs"><strong>添加</strong></button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary" type="button" ng-click="saveExhibition()"><i class="fa fa-check"></i>&nbsp;提交</button>
+            <a class="btn btn-white" type="button" ui-sref="exhibitions.detail({exhibitionId: exhibition._id})" ng-if="exhibition._id">取消</a>
+            <a class="btn btn-white" type="button" ui-sref="exhibitions.lists" ng-if="!exhibition._id">取消</a>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+  </div>
+
+
+</div>
+
+

@@ -9,6 +9,7 @@ angular.module('inspinia')
     $scope.openEditMessageModal = openEditMessageModal;
     $scope.openEditReplyModal = openEditReplyModal;
     $scope.openEditAnswerModal = openEditAnswerModal;
+    $scope.openPartModal = openPartModal;
 
     function openAddModal(users,user) {
       var modalInstance = $uibModal.open({
@@ -40,9 +41,24 @@ angular.module('inspinia')
       });
     }
 
+    function openPartModal(id) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'app/modal/modal_edit_part.html',
+        controller: 'ModalEditPartController',
+        resolve: {
+          userInfo: function () {
+            return {
+              id:id
+            }
+          }
+        }
+      });
+
+    }
+
     function openPasswordModal(id) {
       var modalInstance = $uibModal.open({
-        templateUrl: 'app/modal/modal_edit_password.html',
+        templateUrl: 'app/modal/modal_edit_part.html',
         controller: 'ModalPasswordController',
         resolve: {
           userInfo: function () {
@@ -198,6 +214,7 @@ angular.module('inspinia')
   .controller('ModalPasswordController', function ($scope, User, $uibModalInstance,userInfo,toaster) {
     $scope.editPassword = editPassword;
     $scope.closeModal = closeModal;
+
     var id =  userInfo.id;
     var _user = {};
     function editPassword() {
@@ -215,7 +232,31 @@ angular.module('inspinia')
     function closeModal() {
       $uibModalInstance.close();
     }
+
+
   })
+
+    .controller('ModalEditPartController', function ($scope, User,$state, $uibModalInstance,userInfo,toaster,Part) {
+     $scope.savePart = savePart;
+      $scope.closeModal = closeModal;
+      function savePart()
+      {
+        var partParam = {};
+        partParam = $scope.part;
+        Part.save(partParam,function (data) {
+          if(data)
+          {
+            closeModal();
+          }
+        });
+      }
+      function closeModal() {
+        $uibModalInstance.close();
+        $state.reload();
+      }
+    })
+
+
 
   .controller('ModalEditMessageController', function ($scope, Message, $uibModalInstance,message) {
     if(message.status === 1){

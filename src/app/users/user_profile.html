@@ -21,6 +21,7 @@
                     <div class="ibox-content profile-content">
                         <p>ID：{{user._id || '-'}}</p>
                         <p>CN：{{user.CN || '-'}}</p>
+                        <p>姓名:{{user.realName || '-'}}</p>
                         <p>性别：{{{'0':'男','1':'女'}[user.male] || '-'}}</p>
                         <p>生日：{{user.birth || '-' | date: 'yyyy-MM-dd'}}</p>
                         <p>邮箱：{{user.email || '-'}}</p>

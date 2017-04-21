@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>分组信息
+          <!--<small>With custom checbox and radion elements.</small>-->
+        </h5>
+        <!--<div ibox-tools></div>-->
+      </div>
+      <div class="ibox-content">
+        <form method="get" name="myForm" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="warn-red">*</span>分组名称</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" ng-model="part.name" name="partName" required>
+              <div class="error-help" ng-messages="myForm.username.$dirty && myForm.username.$error" role="alert">
+                <div ng-message="required">请填分组名称</div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-primary" type="button" ng-click="savePart()"><i class="fa fa-check"></i>&nbsp;提交</button>
+        <button class="btn btn-white" type="button" ng-click="closeModal()">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

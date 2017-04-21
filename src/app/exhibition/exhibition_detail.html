@@ -27,6 +27,16 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>展会信息</h5>
+                    <div class="pull-right" uib-dropdown style="margin-left: 15px;">
+                        <a uib-dropdown-toggle="" href>
+                            <i class="fa fa-bars" style="font-size: 20px;"></i>
+                        </a>
+                        <ul uib-dropdown-menu class="m-t-xs">
+                            <li><a ui-sref="exhibitions.edit({exhibitionId: exhibition._id})" ><i class="fa fa-edit"></i>编辑</a></li>
+                            <li><a href=""><i class="fa fa-trash-o"></i> 标记删除</a></li>
+
+                        </ul>
+                    </div>
                 </div>
                 <div>
                     <div class="ibox-content no-padding border-left-right">
@@ -64,6 +74,17 @@
                         <img alt="image" class="img-responsive" ng-src="{{exhibition.coverPath}}">
                     </div>
                 </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>分组</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <span class="btn btn-info btn-rounded" ng-repeat="part in exhibition.parts">{{part.name}}</span>
+                </div>
+
             </div>
         </div>
         <div class="col-md-12">

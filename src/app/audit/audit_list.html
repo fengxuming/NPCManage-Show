@@ -14,7 +14,7 @@
   </div>
     <div class="col-sm-4">
       <div class="title-action">
-        <a ng-click="openAddModal(userList)" ng-controller="ModalController" class="btn btn-primary btn-sm">新增user</a>
+        <a ui-sref="applications.add" class="btn btn-primary btn-sm">新增NPC</a>
       </div>
 
     </div>
@@ -56,28 +56,38 @@
               <thead>
               <tr>
                 <th>CN</th>
+                <th>姓名</th>
                 <th>性别</th>
                 <th>QQ</th>
                 <th>邮箱</th>
+                <th>手机</th>
                 <th>生日</th>
                 <th>地址</th>
+                <th>分组</th>
+                <th>审核状态</th>
                 <th></th>
               </tr>
               </thead>
               <tbody>
               <tr ng-repeat="application in applicationList">
                 <td>
-                  {{application.applicant.CN}}
+                {{application.applicant.CN}}
+                </td>
+                <td>
+                  {{application.applicant.realName}}
                 </td>
                 <td>
                   {{{'0':'男','1':'女'}[application.applicant.male]}}
                 </td>
                 <td>{{application.applicant.QQ}}</td>
                 <td>{{application.applicant.email}}</td>
+                <td>{{application.applicant.phone}}</td>
                 <td>
                   {{application.applicant.birth | date:'yyyy年MM月dd日'}}
                 </td>
                 <td>{{application.applicant.address}}</td>
+                <td>{{application.decidePart.name || "未定"}}</td>
+                <td>{{{'0':'待审核','1':'通过',"-1":"未通过"}[application.isPass]}}</td>
                 <td>
                   <a ui-sref="audits.detail({applicationId: application._id})">
                     <i class="fa fa-bars"></i>

@@ -19,6 +19,7 @@
     "metisMenu": "~2.0.2",
     "fontawesome": "~4.5.0",
     "angular-ui-select": "^0.19.6",
+    "angular-datatables":"2.3.0",
     "angular-strap": "^2.3.10",
     "angular-file-upload": "^2.3.4",
     "sweetalert": "^1.1.3",

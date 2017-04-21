@@ -89,6 +89,17 @@
         templateUrl: "app/exhibition/exhibition_detail.html",
         controller: 'ExhibitionFormController'
       })
+      .state('exhibitions.add', {
+        url: "/add",
+        templateUrl: "app/exhibition/exhibition_form.html",
+        controller: 'ExhibitionFormController'
+      })
+      .state('exhibitions.edit', {
+        url: "/edit/:exhibitionId",
+        templateUrl: "app/exhibition/exhibition_form.html",
+        controller: 'ExhibitionFormController'
+      })
+
       .state('audits', {
         abstract: true,
         url: "/audits",
@@ -104,130 +115,40 @@
         templateUrl: "app/audit/audit_detail.html",
         controller: 'AuditDetailController'
       })
-
-
-
-      //问医
-      .state('asking', {
+      .state('applications', {
         abstract: true,
-        url: "/asking",
+        url: "/applications",
         templateUrl: "app/components/common/content.html"
       })
-      .state('asking.question', {
-        url: "/question",
-        templateUrl: "app/asking/question_list.html",
-        controller: 'QuestionListController'
-      })
-      .state('asking.question.add', {
+      .state('applications.add', {
         url: "/add",
-        views:{
-          '@asking':{
-            templateUrl: "app/asking/question_form.html",
-            controller: 'QuestionDetailController'
-          }
-        }
+        templateUrl: "app/application/application_form.html",
+        controller: 'applicationAddController'
       })
-      .state('asking.question.detail', {
-        url: "/detail/:questionId",
-        views:{
-          '@asking':{
-            templateUrl: "app/asking/question_detail.html",
-            controller: 'QuestionDetailController'
-          }
-        }
-      })
-      .state('asking.question.detail.edit', {
-        url: "/detail/:questionId/edit",
-        views:{
-          '@asking':{
-            templateUrl: "app/asking/question_form.html",
-            controller: 'QuestionDetailController'
-          }
-        }
-      })
-      //热词
-      .state('hotWord', {
+
+
+      .state('show', {
         abstract: true,
-        url: "/hotWord",
+        url: "/show",
         templateUrl: "app/components/common/content.html"
       })
-      .state('hotWord.lists', {
-        url: "/Lists",
-        templateUrl: "app/hotWord/hotWord_list.html",
-        controller: 'HotWordListController'
+      .state('show.main', {
+        url: "/main",
+        templateUrl: "app/show/show_list.html",
+        controller: 'ShowListController'
       })
 
-      .state('hotWord.add', {
-        url: "/add",
-        templateUrl: "app/hotWord/hotWord_form.html",
-        controller: 'HotWordFormController'
-      })
-      .state('hotWord.edit', {
-        url: "/:hotWordId/edit",
-        templateUrl: "app/hotWord/hotWord_form.html",
-        controller: 'HotWordFormController'
-      })
-
-
-      //V诊室
-      .state('channel', {
+      .state('parts', {
         abstract: true,
-        url: "/channel",
+        url: "/parts",
         templateUrl: "app/components/common/content.html"
       })
-      .state('channel.question', {
-        url: "/question",
-        templateUrl: "app/channel/channel_list.html",
-        controller: 'ChannelListController'
-      })
-      .state('channel.question.add', {
-        url: "/add",
-        views:{
-          '@channel':{
-            templateUrl: "app/channel/channel_form.html",
-            controller: 'ChannelDetailController'
-          }
-        }
-      })
-      .state('channel.question.detail', {
-        url: "/detail/:channelId",
-        views:{
-          '@channel':{
-            templateUrl: "app/channel/channel_detail.html",
-            controller: 'ChannelDetailController'
-          }
-        }
-      })
-      .state('channel.question.detail.edit', {
-        url: "/detail/:channelId/edit",
-        views:{
-          '@channel':{
-            templateUrl: "app/channel/channel_form.html",
-            controller: 'ChannelDetailController'
-          }
-        }
+      .state('parts.lists', {
+        url: "/lists",
+        templateUrl: "app/part/part_list.html",
+        controller: 'PartListController'
       })
 
-  .state('banner', {
-      abstract: true,
-      url: "/banner",
-      templateUrl: "app/components/common/content.html"
-    })
-  .state('banner.lists', {
-      url: "/lists",
-      templateUrl: "app/banner/banner_list.html",
-      controller: 'BannerListController'
-    })
-  .state('banner.add', {
-      url: "/add",
-      templateUrl: "app/banner/banner_form.html",
-      controller: 'BannerFormController'
-    })
-  .state('banner.edit', {
-      url: "/:bannerId/edit",
-      templateUrl: "app/banner/banner_form.html",
-      controller: 'BannerFormController'
-    });
     $urlRouterProvider.otherwise('/index/main');
   }
 

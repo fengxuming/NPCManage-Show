@@ -1,0 +1,111 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="ibox-content">
+    <div class="row">
+      <div class="col-sm-5 m-b-xs">
+        <button type="button" class="btn btn-default" ng-model="exhibition" data-html="1" data-toggle="true" placeholder="请选择展会" bs-options="exhibition._id as exhibition.title for exhibition in exhibitions" bs-select>
+          Action <span class="caret"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <uib-tabset>
+    <uib-tab heading="人员表">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>NPC汇总表</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-wrench"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                  <li><a href="#">Config option 1</a>
+                  </li>
+                  <li><a href="#">Config option 2</a>
+                  </li>
+                </ul>
+                <a class="close-link">
+                  <i class="fa fa-times"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+
+              <div class="table-responsive" ng-if="applicationList.length!=0">
+                <table datatable="ng" dt-options="dtOptions" class="table table-striped table-bordered table-hover dataTables-example" >
+                  <thead>
+                  <tr>
+                    <th>CN</th>
+                    <th>性别</th>
+                    <th>QQ</th>
+                    <th>邮箱</th>
+                    <th>手机</th>
+                    <th>生日</th>
+                    <th>地址</th>
+                    <th>分组</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr  ng-repeat="application in applicationList">
+                    <td>{{application.applicant.CN}}</td>
+                    <td>{{{'0':'男','1':'女'}[application.applicant.male]}}</td>
+                    <td>{{application.applicant.QQ}}</td>
+                    <td>{{application.applicant.email}}</td>
+                    <td>{{application.applicant.phone}}</td>
+                    <td>{{application.applicant.birth | date:'yyyy年MM月dd日'}}</td>
+                    <td>{{application.applicant.address}}</td>
+                    <td>{{application.decidePart.name || "未定"}}</td>
+
+                  </tr>
+
+
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>CN</th>
+                    <th>性别</th>
+                    <th>QQ</th>
+                    <th>邮箱</th>
+                    <th>手机</th>
+                    <th>生日</th>
+                    <th>地址</th>
+                    <th>分组</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </uib-tab>
+    <uib-tab heading="分组表">
+     <div class="ibox float-e-margins" ng-repeat="part in parts">
+       <div class="ibox-title">
+         <h5>{{part.name}}</h5>
+       </div>
+       <div class="ibox-content">
+         <span class="btn btn-info btn-rounded" ng-repeat="item in part.list">
+           {{item.applicant.CN}}
+         </span>
+       </div>
+     </div>
+
+
+
+
+    </uib-tab>
+
+
+
+
+
+
+
+
+</div>

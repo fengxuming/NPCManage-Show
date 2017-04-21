@@ -3,12 +3,6 @@
  */
 angular.module('inspinia')
     .controller('AuditListController', function ($scope, User, $state, Exhibition,UserInfo,Application) {
-        // $scope.types = TYPES;
-        // $scope.maxSize = 10;
-        // $scope.currentPage = 1;
-        // $scope.totalItems = 2000;
-        // $scope.userType = "all";
-
         $scope.exhibition = {};
 
         var userId = UserInfo._id;
@@ -21,35 +15,14 @@ angular.module('inspinia')
 
             }
         });
-
-
-
-
-
         var queryParams = {};
-        // queryParams.maxSize = $scope.maxSize;
-        //
-        // $scope.keywordSearch = keywordSearch;
-        //
-        // $scope.$watch("currentPage", function (newVal, oldVal) {
-        //     queryParams.offset = ($scope.currentPage - 1) * $scope.maxSize;
-        //     reloadUsers();
-        // }, true);
-        //
-        //
+
         $scope.$watch('exhibition',function (newVal, oldVal) {
             if(newVal !== undefined && newVal !== oldVal){
                 queryParams.exhibition = newVal;
                 reloadUsers();
             }
         });
-        // function keywordSearch() {
-        //     $scope.totalItems = 2000;
-        //     $scope.currentPage = 1;
-        //     queryParams.offset = 0;
-        //     queryParams.q = $scope.q;
-        //     reloadUsers();
-        // }
         function reloadUsers(){
             Application.query(queryParams, function (data) {
                 if (data) {
@@ -69,11 +42,6 @@ angular.module('inspinia')
         }
     })
     .controller('AuditDetailController', function ($scope, User,$stateParams, $state, Exhibition,UserInfo,Application) {
-        $scope.tags = [{ text: 'Amsterdam' },
-            { text: 'Washington' },
-            { text: 'Sydney' },
-            { text: 'Cairo' },
-            { text: 'Beijing' }];
         var id = $stateParams.applicationId;
         if(id){
             var params = {};
@@ -85,7 +53,42 @@ angular.module('inspinia')
                 }else{
                     $scope.application.applicant.avatarPath = "";
                 }
+                var exhibitionId = $scope.application.exhibition._id;
+                var exhibitionParams = {};
+                exhibitionParams.id = exhibitionId;
+                Exhibition.get(exhibitionParams,function (data) {
+                    $scope.parts = data.parts;
+                });
+                if(data.isPass==1)
+                {
+                    $scope.isPass = true;
+                }
+                else
+                {
+                    $scope.isPass = false;
+                }
 
             })
         }
+        $scope.audit = audit;
+        function audit() {
+            var applicationParams = $scope.application;
+            if($scope.isPass)
+            {
+                applicationParams.isPass = 1;
+            }
+            else
+            {
+                applicationParams.isPass = -1;
+            }
+            Application.update({id:applicationParams._id},applicationParams,function (data) {
+                if(data)
+                {
+                    $state.go("audit.lists");
+                }
+            });
+
+        }
+
+
     });

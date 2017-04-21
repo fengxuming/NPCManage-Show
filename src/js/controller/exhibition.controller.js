@@ -25,8 +25,10 @@ angular.module('inspinia')
     }
   })
 
-  .controller('ExhibitionFormController', function ($scope, $state,Exhibition,Discuss,Note, $stateParams, uploaderService,toaster) {
+  .controller('ExhibitionFormController', function ($scope, $state,Exhibition,Discuss,Note, $stateParams, uploaderService,UserInfo,Part) {
+
     var id = $stateParams.exhibitionId;
+    $scope.exhibition = {};
     if(id){
       var params = {};
       params.id = id;
@@ -40,8 +42,25 @@ angular.module('inspinia')
           }
           $scope.exhibition.coverName = data.name;
 
+
+          Part.query(function (data) {
+            if(data)
+            {
+              $scope.parts = data;
+              angular.forEach($scope.parts,function (part) {
+                angular.forEach($scope.exhibition.parts,function (exhibitionPart) {
+                  if(part._id == exhibitionPart._id)
+                  {
+                    part.selected = true;
+                  }
+                });
+              });
+            }
+          });
+
         }
       });
+
       var noteParams = {};
       noteParams.exhibition = id;
       Note.query(noteParams,function (data) {
@@ -59,46 +78,75 @@ angular.module('inspinia')
         }
       });
     }
+    else {
+      Part.query(function (data) {
+        if(data)
+        {
+          $scope.parts = data;
+        }
+      });
+    }
+
+
+
 
 
     $scope.uploader = uploaderService.buildUploader(function(data){
       $scope.uploader.removeAfterUpload = true;
-      $scope.Exhibition.cover = data._id;
-      $scope.Exhibition.coverPath = API_END_POINT + "/" + data.path.replace('public','');
-      $scope.Exhibition.coverName = data.name;
+      $scope.exhibition.cover = data._id;
+      $scope.exhibition.coverPath = API_END_POINT + "/" + data.path.replace('public','');
+      $scope.exhibition.coverName = data.name;
     });
 
 
 
 
-    $scope.saveBanner = saveBanner;
-    $scope.removeBanner = removeBanner;
-    function saveBanner() {
-      var bannerParams = $scope.banner;
-      if(bannerParams.status){
-        bannerParams.status = 1
-      }
-      if(!$scope.banner.title || !$scope.banner.url || !$scope.banner.cover){
-        toaster.pop('error', "请检查所填数据的完整性!");
-      }else{
-        if(bannerParams._id){
-          Banner.update({id:bannerParams._id},bannerParams,function (data) {
-            if (data){
-              $state.go('banner.lists');
-            }
-          })
-        }else {
-          Banner.save(bannerParams,function (data) {
-            if (data._id){
-              $state.go('banner.lists');
-            }
-          })
+    $scope.saveExhibition = saveExhibition;
+    $scope.removeExhibition = removeExhibition;
+    $scope.addPart = addPart;
+    function saveExhibition() {
+
+      var exhibitionParts = [];
+      angular.forEach($scope.parts,function (part) {
+        if(part.selected)
+        {
+          exhibitionParts.push(part._id);
         }
+      });
+      $scope.exhibition.parts = exhibitionParts;
+      var exhibitionParams = $scope.exhibition;
+      if(exhibitionParams._id){
+        Exhibition.update({id:exhibitionParams._id},exhibitionParams,function (data) {
+          if (data){
+            $state.go('exhibitions.detail',{exhibitionId:exhibitionParams._id});
+          }
+        })
+      }else {
+        exhibitionParams.organizer = UserInfo._id;
+        Exhibition.save(exhibitionParams,function (data) {
+          if (data._id){
+            $state.go('exhibitions.detail',{exhibitionId:exhibitionParams._id});
+          }
+        })
       }
     }
-    function removeBanner() {
+
+    function addPart() {
+
+      var partParams ={};
+      partParams.name = $scope.partOfAdd;
+      Part.save(partParams,function (data) {
+          if(data)
+          {
+            $scope.parts.push(data);
+          }
+      });
+    }
+
+
+    function removeExhibition() {
       swal({
-        title: "<small>确定删除该banner吗？</small>",
+        title: "<small>确定删除该展子吗？</small>",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
@@ -107,7 +155,7 @@ angular.module('inspinia')
         closeOnConfirm: false,
         html:true
       }, function(){
-              Banner.delete({id:$scope.banner._id},function (data) {
+              Exhibition.delete({id:$scope.exhibition._id},function (data) {
                 if (data){
                   swal({
                     title: "删除完毕!",
@@ -115,11 +163,13 @@ angular.module('inspinia')
                     type: "success",
                     timer: 1000
                   });
-                  $state.go('banner.lists')
+                  $state.go('exhibition.lists')
                 }
               })
       });
       }
+
+
 
   });
 
