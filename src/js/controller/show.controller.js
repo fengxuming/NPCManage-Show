@@ -17,8 +17,6 @@ angular.module('inspinia')
         $scope.dtOptions = DTOptionsBuilder.newOptions()
             .withDOM('<"html5buttons"B>lTfgitp')
             .withButtons([
-                {extend: 'copy'},
-                {extend: 'csv'},
                 {extend: 'excel', title: 'NPC汇总表'},
 
                 {extend: 'print',

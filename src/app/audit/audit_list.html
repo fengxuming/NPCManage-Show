@@ -43,16 +43,16 @@
               <!--</div>-->
             </div>
             <div class="col-sm-3">
-              <div class="input-group">
-                <input type="text" placeholder="请输入关键字搜索" class="input-sm form-control" ng-model="q">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-sm btn-primary" ng-click="keywordSearch()"> 搜索</button>
-                </span>
-              </div>
+              <!--<div class="input-group">-->
+                <!--<input type="text" placeholder="请输入关键字搜索" class="input-sm form-control" ng-model="q">-->
+                <!--<span class="input-group-btn">-->
+                  <!--<button type="button" class="btn btn-sm btn-primary" ng-click="keywordSearch()"> 搜索</button>-->
+                <!--</span>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" >
               <thead>
               <tr>
                 <th>CN</th>
@@ -98,7 +98,7 @@
             </table>
           </div>
           <div class="text-right">
-            <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="0" previous-text="上一页" next-text="下一页"></uib-pagination>
+            <uib-pagination total-items="totalItems" ng-model="currentPage" max-size="2" previous-text="上一页" next-text="下一页"></uib-pagination>
           </div>
         </div>
       </div>

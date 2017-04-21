@@ -4,6 +4,10 @@
 angular.module('inspinia')
     .controller('AuditListController', function ($scope, User, $state, Exhibition,UserInfo,Application) {
         $scope.exhibition = {};
+        $scope.maxSize = 10;
+        $scope.currentPage = 1;
+        $scope.totalItems = 2000;
+
 
         var userId = UserInfo._id;
         var exhibitionParams = {};
@@ -17,12 +21,23 @@ angular.module('inspinia')
         });
         var queryParams = {};
 
+        queryParams.maxSize = $scope.maxSize;
+
         $scope.$watch('exhibition',function (newVal, oldVal) {
             if(newVal !== undefined && newVal !== oldVal){
                 queryParams.exhibition = newVal;
                 reloadUsers();
             }
+
         });
+        $scope.$watch("currentPage", function (newVal, oldVal) {
+            queryParams.offset = ($scope.currentPage - 1) * $scope.maxSize;
+            queryParams.exhibition=$scope.exhibition;
+            reloadUsers();
+        }, true);
+
+
+
         function reloadUsers(){
             Application.query(queryParams, function (data) {
                 if (data) {
@@ -42,6 +57,7 @@ angular.module('inspinia')
         }
     })
     .controller('AuditDetailController', function ($scope, User,$stateParams, $state, Exhibition,UserInfo,Application) {
+        var flag = "fengxuming";
         var id = $stateParams.applicationId;
         if(id){
             var params = {};
@@ -84,7 +100,8 @@ angular.module('inspinia')
             Application.update({id:applicationParams._id},applicationParams,function (data) {
                 if(data)
                 {
-                    $state.go("audit.lists");
+                    $state.go("audits.lists");
+                    // $state.go('audits.detail',{applicationId:data._id});
                 }
             });
 

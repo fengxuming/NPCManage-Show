@@ -125,6 +125,11 @@
         templateUrl: "app/application/application_form.html",
         controller: 'applicationAddController'
       })
+      .state('applications.edit', {
+        url: "/edit/:applicationId",
+        templateUrl: "app/application/application_form.html",
+        controller: 'applicationAddController'
+      })
 
 
       .state('show', {

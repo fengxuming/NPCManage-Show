@@ -7,7 +7,12 @@ angular.module('inspinia')
   .controller('ExhibitionListController', function ($scope,$state, Exhibition,UserInfo) {
     var queryParams = {};
     queryParams.organizer = UserInfo._id;
+    $scope.keywordSearch = keywordSearch;
     reloadExhibitions();
+    function keywordSearch() {
+      queryParams.title = $scope.q;
+      reloadExhibitions();
+    }
     function reloadExhibitions() {
       Exhibition.query(queryParams,function (data) {
         if (data) {
@@ -125,7 +130,7 @@ angular.module('inspinia')
         exhibitionParams.organizer = UserInfo._id;
         Exhibition.save(exhibitionParams,function (data) {
           if (data._id){
-            $state.go('exhibitions.detail',{exhibitionId:exhibitionParams._id});
+            $state.go('exhibitions.detail',{exhibitionId:data._id});
           }
         })
       }

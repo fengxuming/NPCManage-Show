@@ -5,7 +5,7 @@
 
 angular.module('inspinia')
   .controller('applicationAddController', function ($scope,$state,User,Application,GenderOptions,Exhibition,Part,uploaderService,UserInfo) {
-    $scope.flag = "fengxuming";
+
     $scope.genderOptions = GenderOptions;
     $scope.NPC = {};
     $scope.maleSelected ={};

@@ -8,10 +8,11 @@
                 <a href="index.html">主页</a>
             </li>
             <li class="active">
-                <strong>列表</strong>
+                <a href="" ui-sref="audits.lists">列表</a>
             </li>
             <li class="active">
-                <strong>详情</strong>
+                <strong ng-if="!NPC._id">新建</strong>
+                <strong ng-if="NPC._id">编辑</strong>
             </li>
         </ol>
     </div>
@@ -130,10 +131,10 @@
                             </div>
                         </div>
 
-                        <div class="text-center">
-                            <button class="btn btn-primary" type="button" ng-click="saveUserAndApplication()"><i class="fa fa-check"></i>&nbsp;提交</button>
-                            <a class="btn btn-white" type="button" ui-sref="audits.lists" >取消</a>
-                        </div>
+                        <!--<div class="text-center">-->
+                            <!--<button class="btn btn-primary" type="button" ng-click="saveUserAndApplication()"><i class="fa fa-check"></i>&nbsp;提交</button>-->
+                            <!--<a class="btn btn-white" type="button" ui-sref="audits.lists" >取消</a>-->
+                        <!--</div>-->
                     </form>
                 </div>
 
@@ -230,6 +231,16 @@
                 </div>
 
             </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="button" ng-click="saveUserAndApplication()"><i class="fa fa-check"></i>&nbsp;提交</button>
+                        <a class="btn btn-white" type="button" ui-sref="audits.lists" >取消</a>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </div>

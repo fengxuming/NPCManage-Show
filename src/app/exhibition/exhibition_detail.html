@@ -6,7 +6,7 @@
                 <a href="index.html">主页</a>
             </li>
             <li>
-                <a>列表</a>
+                <a href="" ui-sref="exhibitions.lists">列表</a>
             </li>
             <li class="active">
                 <strong>详情</strong>
@@ -116,7 +116,6 @@
                     </uib-tab>
                     <uib-tab heading="讨论区">
                         <div class="panel-body">
-
                             <div class="feed-element" ng-repeat="discuss in discusses" style="overflow: visible;">
                                 <span ng-bind="outerIndex = $index" style="display: none;"></span>
                                 <a href="" class="pull-left">
@@ -124,15 +123,16 @@
                                 </a>
 
                                 <div class="media-body " style="overflow: visible;margin-left: 48px;">
-                                    <div class="pull-right" uib-dropdown style="margin-left: 15px;">
-                                        <a uib-dropdown-toggle="" href>
-                                            <i class="fa fa-bars"></i>
-                                        </a>
-                                        <ul uib-dropdown-menu class="m-t-xs">
-                                            <li><a href="" ng-click="openEditMessageModal(message)" ng-controller="ModalController"><i class="fa fa-edit"></i> 编辑</a></li>
-                                            <li><a href="" ng-click="deleteMessage($index)"><i class="fa fa-trash-o"></i> 删除</a></li>
-                                        </ul>
-                                    </div>
+
+                                    <!--<div class="pull-right" uib-dropdown style="margin-left: 15px;">-->
+                                        <!--<a uib-dropdown-toggle="" href>-->
+                                            <!--<i class="fa fa-bars"></i>-->
+                                        <!--</a>-->
+                                        <!--<ul uib-dropdown-menu class="m-t-xs">-->
+                                            <!--<li><a href="" ng-click="openEditMessageModal(message)" ng-controller="ModalController"><i class="fa fa-edit"></i> 编辑</a></li>-->
+                                            <!--<li><a href="" ng-click="deleteMessage($index)"><i class="fa fa-trash-o"></i> 删除</a></li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
                                     <small class="pull-right">{{discuss.dateCreated | interval}}</small>
                                     <strong>{{discuss.user.CN || '未命名'}}</strong>
                                     <br>

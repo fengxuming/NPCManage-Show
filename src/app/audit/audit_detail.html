@@ -8,19 +8,19 @@
                 <a href="index.html">主页</a>
             </li>
             <li class="active">
-                <strong>列表</strong>
+                <a href="" ui-sref="audits.lists">列表</a>
             </li>
             <li class="active">
                 <strong>详情</strong>
             </li>
         </ol>
     </div>
-    <div class="col-sm-4">
-        <div class="title-action">
-            <a ng-click="openAddModal(userList)" ng-controller="ModalController" class="btn btn-primary btn-sm">新增user</a>
-        </div>
+    <!--<div class="col-sm-4">-->
+        <!--<div class="title-action">-->
+            <!--<a ng-click="openAddModal(userList)" ng-controller="ModalController" class="btn btn-primary btn-sm">新增user</a>-->
+        <!--</div>-->
 
-    </div>
+    <!--</div>-->
 </div>
 <div class="wrapper wrapper-content">
     <div class="row animated fadeInRight">
@@ -28,6 +28,16 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>个人资料</h5>
+                    <!--<div class="pull-right" uib-dropdown style="margin-left: 15px;">-->
+                        <!--<a uib-dropdown-toggle="" href>-->
+                            <!--<i class="fa fa-bars" style="font-size: 20px;"></i>-->
+                        <!--</a>-->
+                        <!--<ul uib-dropdown-menu class="m-t-xs">-->
+                            <!--<li><a ui-sref="" ><i class="fa fa-edit"></i>编辑</a></li>-->
+                            <!--<li><a href=""><i class="fa fa-trash-o"></i> 标记删除</a></li>-->
+
+                        <!--</ul>-->
+                    <!--</div>-->
                 </div>
                 <div>
                     <div class="ibox-content no-padding border-left-right">
@@ -49,39 +59,39 @@
                 </div>
             </div>
 
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="checkbox-inline">
-                                <input icheck type="checkbox" ng-model="isPass">
-                            </label>
-                            <label>是否通过</label>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-primary btn-xs" type="button" ng-click="audit()"><i class="fa fa-check"></i>&nbsp;提交</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="ibox float-e-margins">-->
+                <!--<div class="ibox-content">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-6">-->
+                            <!--<label class="checkbox-inline">-->
+                                <!--<input icheck type="checkbox" ng-model="isPass">-->
+                            <!--</label>-->
+                            <!--<label>是否通过</label>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6">-->
+                            <!--<button class="btn btn-primary btn-xs" type="button" ng-click="audit()"><i class="fa fa-check"></i>&nbsp;提交</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
-            <div class="ibox float-e-margins" ng-if="isPass">
-                <div class="ibox-title">
-                    <h5>选择分组</h5>
-                    <div ibox-tools></div>
-                </div>
-                <div class="ibox-content">
-                    <ui-select ng-model="application.decidePart" theme="bootstrap" on-select="onSelect($item)">
-                        <ui-select-match placeholder="请选择分组">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices repeat="item in parts">
-                            <div ng-bind-html="item.name"></div>
-                        </ui-select-choices>
-                    </ui-select>
+            <!--<div class="ibox float-e-margins" ng-if="isPass">-->
+                <!--<div class="ibox-title">-->
+                    <!--<h5>选择分组</h5>-->
+                    <!--<div ibox-tools></div>-->
+                <!--</div>-->
+                <!--<div class="ibox-content">-->
+                    <!--<ui-select ng-model="application.decidePart" theme="bootstrap" on-select="onSelect($item)">-->
+                        <!--<ui-select-match placeholder="请选择分组">{{$select.selected.name}}</ui-select-match>-->
+                        <!--<ui-select-choices repeat="item in parts">-->
+                            <!--<div ng-bind-html="item.name"></div>-->
+                        <!--</ui-select-choices>-->
+                    <!--</ui-select>-->
 
 
-                </div>
+                <!--</div>-->
 
-            </div>
+            <!--</div>-->
 
 
         </div>
@@ -133,6 +143,40 @@
                 </div>
                 <div class="ibox-content">
                     <span class="btn btn-info btn-rounded" ng-repeat="part in application.parts">{{part.name}}</span>
+                </div>
+
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="checkbox-inline">
+                                <input icheck type="checkbox" ng-model="isPass">
+                            </label>
+                            <label>是否通过</label>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary btn-xs" type="button" ng-click="audit()"><i class="fa fa-check"></i>&nbsp;提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins" ng-if="isPass">
+                <div class="ibox-title">
+                    <h5>选择分组</h5>
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <ui-select ng-model="application.decidePart" theme="bootstrap" on-select="onSelect($item)">
+                        <ui-select-match placeholder="请选择分组">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="item in parts">
+                            <div ng-bind-html="item.name"></div>
+                        </ui-select-choices>
+                    </ui-select>
+
+
                 </div>
 
             </div>
