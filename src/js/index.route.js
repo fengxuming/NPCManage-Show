@@ -9,6 +9,40 @@
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
 
+      .state('dashboards_top', {
+        abstract: true,
+        url: "/dashboards_top",
+        templateUrl: "app/components/common/content_top_navigation.html"
+      })
+      .state('dashboards_top.dashboard_4', {
+        url: "/dashboard_4",
+        templateUrl: "app/view/dashboard_4.html",
+        controller: 'ExhibitionListForNPCController'
+
+      })
+      .state('dashboards_top.exhibitionDetail', {
+        url: "/detail/:exhibitionId",
+        templateUrl: "app/view/exhibition_detail.html",
+        controller: 'ExhibitionFormController'
+
+      })
+      .state('dashboards_top.ApplicationAdd', {
+        url: "/add/:exhibitionId",
+        templateUrl: "app/view/application_form.html",
+        controller: 'applicationAddForNPCController'
+      })
+      .state('dashboards_top.npcDetail', {
+        url: "/npcDetail/:userId",
+        templateUrl: "app/view/npc_profile.html",
+        controller: 'UserDetailController'
+      })
+      .state('dashboards_top.npcEdit', {
+        url: "/edit/:userId",
+        templateUrl: "app/view/npc_form.html",
+        controller: 'UserDetailController'
+      })
+
+
       .state('index', {
         abstract: true,
         url: "/index",
@@ -35,18 +69,6 @@
         templateUrl: "app/users/user_list.html",
         controller: 'UserListController'
       })
-      // .state('users.doctor', {
-      //   url: "/doctor",
-      //   templateUrl: "app/users/doctor_list.html",
-      //   data: {userType: 'doctor'},
-      //   controller: 'UserListController'
-      // })
-      // .state('users.customer', {
-      //   url: "/customer",
-      //   templateUrl: "app/users/user_list.html",
-      //   data: {userType: 'user'},
-      //   controller: 'UserListController'
-      // })
       .state('users.detail', {
         url: "/detail/:userId",
         views:{

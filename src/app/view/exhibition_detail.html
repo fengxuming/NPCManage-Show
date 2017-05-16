@@ -1,0 +1,151 @@
+
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-md-7">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>展会信息</h5>
+                    <!--<div class="pull-right" uib-dropdown style="margin-left: 15px;">-->
+                        <!--<a uib-dropdown-toggle="" href>-->
+                            <!--<i class="fa fa-bars" style="font-size: 20px;"></i>-->
+                        <!--</a>-->
+                        <!--<ul uib-dropdown-menu class="m-t-xs">-->
+                            <!--<li><a ui-sref="exhibitions.edit({exhibitionId: exhibition._id})" ><i class="fa fa-edit"></i>编辑</a></li>-->
+                            <!--<li><a href=""><i class="fa fa-trash-o"></i> 标记删除</a></li>-->
+
+                        <!--</ul>-->
+                    <!--</div>-->
+                </div>
+                <div>
+                    <div class="ibox-content no-padding border-left-right">
+                        <img alt="image" class="img-responsive" ng-src="{{exhibition.coverPath}}">
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th colspan="2">展子资料</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr><td>主办 </td><td>{{exhibition.organizer.CN}}</td></tr>
+                            <tr><td>名称 </td><td>{{exhibition.title}}</td></tr>
+                            <tr><td>简介 </td><td>{{exhibition.info}}</td></tr>
+                            <tr><td>开始时间 </td><td>{{exhibition.beginDate | date: 'yyyy-MM-dd HH:mm:ss'}}</td></tr>
+                            <tr><td>结束时间 </td><td>{{exhibition.endDate | date: 'yyyy-MM-dd HH:mm:ss'}}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+
+
+    </div>
+        <div class="col-md-5">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>展子地图</h5>
+                </div>
+                <div>
+                    <div class="ibox-content no-padding border-left-right">
+                        <img alt="image" class="img-responsive" ng-src="{{exhibition.coverPath}}">
+                    </div>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>分组</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <span class="btn btn-info btn-rounded" ng-repeat="part in exhibition.parts">{{part.name}}</span>
+                </div>
+
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="text-center">
+                        <a class="btn btn-primary" ui-sref="dashboards_top.ApplicationAdd({exhibitionId:exhibition._id})">申请NPC</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="tabs-container">
+                <uib-tabset>
+                    <uib-tab heading="主办留言">
+                        <div class="panel-body">
+                            <div class="ibox-content inspinia-timeline">
+
+                                <div class="timeline-item"  ng-repeat="note in notes">
+                                    <div class="row">
+                                        <div class="col-xs-3 date">
+                                            <i class="fa fa-file-text"></i>
+                                            {{note.dateCreated| date: 'yyyy-MM-dd HH:mm:ss'}}
+                                            <br/>
+                                            <!--<small class="text-navy">2 hour ago</small>-->
+                                        </div>
+                                        <div class="col-xs-7 content no-top-border">
+                                            <p class="m-b-xs"><strong>{{note.title}}</strong></p>
+                                            {{note.content}}
+                                            <p>
+                                                <bar-chart data="main.BarChart2.data" options="main.BarChart2.options"></bar-chart>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="讨论区">
+                        <div class="panel-body">
+                            <div class="feed-element" ng-repeat="discuss in discusses" style="overflow: visible;">
+                                <span ng-bind="outerIndex = $index" style="display: none;"></span>
+                                <a href="" class="pull-left">
+                                    <img alt="image" class="img-circle" avatar="{{discuss.user.avatar.thumb}}" ng-if="!message.user.avatarForMobile" >
+                                </a>
+
+                                <div class="media-body " style="overflow: visible;margin-left: 48px;">
+
+                                    <!--<div class="pull-right" uib-dropdown style="margin-left: 15px;">-->
+                                        <!--<a uib-dropdown-toggle="" href>-->
+                                            <!--<i class="fa fa-bars"></i>-->
+                                        <!--</a>-->
+                                        <!--<ul uib-dropdown-menu class="m-t-xs">-->
+                                            <!--<li><a href="" ng-click="openEditMessageModal(message)" ng-controller="ModalController"><i class="fa fa-edit"></i> 编辑</a></li>-->
+                                            <!--<li><a href="" ng-click="deleteMessage($index)"><i class="fa fa-trash-o"></i> 删除</a></li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                    <small class="pull-right">{{discuss.dateCreated | interval}}</small>
+                                    <strong>{{discuss.user.CN || '未命名'}}</strong>
+                                    <br>
+                                    <span>{{discuss.content}}</span><br/>
+                                    <small class="text-muted">{{discuss.dateCreated | date:'yyyy-MM-dd HH:mm:ss'}}</small>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>内容</label>
+                                    <textarea class="form-control" placeholder="" rows="3" ng-model="discuss.content" style="resize: none;"></textarea>
+                                </div>
+                                <button class="btn btn-primary btn-block" ng-click="saveMessage()">回复</button>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+        </div>
+</div>
+
+</div>
+

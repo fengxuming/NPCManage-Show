@@ -1,0 +1,212 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-12" >
+        <div class="text-center">
+            <h2>
+                {{exhibition.title}}NPC申请
+            </h2>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <!--<div class="col-md-4">-->
+            <!--<div class="ibox float-e-margins">-->
+                <!--<div class="ibox-title">-->
+                    <!--<h5>个人资料</h5>-->
+                <!--</div>-->
+                <!--<div class="ibox-content">-->
+                    <!--<form name="myForm">-->
+                        <!--<div class="form-group">-->
+                            <!--<label>CN<span class="warn-red">*</span></label>-->
+                            <!--<input type="text" class="form-control" placeholder="请填写CN" name="CN" ng-model="NPC.CN" required>-->
+                            <!--<div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">-->
+                                <!--<div ng-message="required">请填写CN</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>姓名<span class="warn-red">*</span></label>-->
+                            <!--<input type="text" class="form-control" placeholder="请填写姓名" name="realName" ng-model="NPC.realName" required>-->
+                            <!--<div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">-->
+                                <!--<div ng-message="required">请填写姓名</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group" >-->
+                            <!--<label>头像<span class="warn-red">*</span></label>-->
+                            <!--<div style="margin-bottom: 10px" ng-if="NPC.avatarPath">-->
+                                <!--<img width="30%" ng-src="{{NPC.avatarPath}}">-->
+                            <!--</div>-->
+                            <!--<div class="fileinput fileinput-new input-group" data-provides="fileinput">-->
+                                <!--<input class="upload" type="file" name="banner_cover" id="banner_cover" style="opacity: 0;width: 100%;height: 30px;cursor: pointer;" nv-file-select uploader="uploader"/>-->
+                                <!--<button type="button" class="btn btn-default btn-sm btn-block" style="margin-top: -30px;cursor: pointer;"><i class="fa fa-file-image-o"></i> 上传头像</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>邮箱<span class="warn-red">*</span></label>-->
+                            <!--<input type="text" class="form-control" placeholder="请填写邮箱" name="email" ng-model="NPC.email" required>-->
+                            <!--<div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">-->
+                                <!--<div ng-message="required">请填写邮箱</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>联系方式<span class="warn-red">*</span></label>-->
+                            <!--<input type="text" class="form-control" placeholder="请填联系方式" name="phone" ng-model="NPC.phone" required>-->
+                            <!--<div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">-->
+                                <!--<div ng-message="required">请填写联系方式</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>性别<span class="warn-red">*</span></label>-->
+                            <!--<ui-select ng-model="maleSelected" theme="bootstrap" on-select="onSelect($item)">-->
+                                <!--<ui-select-match placeholder="请选择性别">{{$select.selected.label}}</ui-select-match>-->
+                                <!--<ui-select-choices repeat="item in genderOptions | filter: $select.search">-->
+                                    <!--<div ng-bind-html="item.label | highlight: $select.search"></div>-->
+                                <!--</ui-select-choices>-->
+                            <!--</ui-select>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>身份证号码<span class="warn-red">*</span></label>-->
+                            <!--<input type="text" class="form-control" placeholder="请填写身份证号码" name="idCard" ng-model="NPC.idCard" required>-->
+                            <!--<div class="error-help" ng-messages="myForm.title.$dirty && myForm.title.$error" role="alert">-->
+                                <!--<div ng-message="required">请填写身份证号码</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>生日<span class="warn-red">*</span></label>-->
+                            <!--<div class="input-group date">-->
+                                <!--<input type="text" size="10" class="form-control" data-date-format="yyyy-MM-dd" ng-model="NPC.birth"-->
+                                       <!--data-autoclose="1" placeholder="日期" bs-datepicker required>-->
+                                <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>地址</label>-->
+                            <!--<input type="text" class="form-control" placeholder="请填写地址" name="description" ng-model="NPC.address" >-->
+                            <!--<div class="error-help" ng-messages="myForm.description.$dirty && myForm.description.$error" role="alert">-->
+                                <!--<div ng-message="required">请填写地址</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label>QQ</label>-->
+                            <!--<input type="text" class="form-control" placeholder="请填写QQ" name="description" ng-model="NPC.QQ" >-->
+                            <!--<div class="error-help" ng-messages="myForm.description.$dirty && myForm.description.$error" role="alert">-->
+                                <!--<div ng-message="required">请填写QQ</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--&lt;!&ndash;<div class="text-center">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<button class="btn btn-primary" type="button" ng-click="saveUserAndApplication()"><i class="fa fa-check"></i>&nbsp;提交</button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<a class="btn btn-white" type="button" ui-sref="audits.lists" >取消</a>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--</form>-->
+                <!--</div>-->
+
+            <!--</div>-->
+
+
+
+
+
+        <!--</div>-->
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>NPC经验</h5>
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="" rows="5" ng-model="application.NPCexperience" name="content" required style="resize: none;"></textarea>
+                        <div class="error-help" ng-messages="myForm.content.$dirty && myForm.content.$error" role="alert">
+                            <div ng-message="required">请填写NPC经验</div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>建议</h5>
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="" rows="3" ng-model="application.advice" name="content" required style="resize: none;"></textarea>
+                        <div class="error-help" ng-messages="myForm.content.$dirty && myForm.content.$error" role="alert">
+                            <div ng-message="required">请填写建议</div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>技能与特长</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+
+                    <div>
+                        <div class="chat-activity-list">
+
+                            <div class="chat-element" ng-repeat="skill in skills">
+                                {{skill}}
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="chat-form">
+                        <form role="form">
+
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="特长技能" ng-model="skill"></textarea>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" ng-click="addSkill(skill)" class="btn btn-sm btn-primary m-t-n-xs"><strong>添加</strong></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>期望的分组</h5>
+
+                    <div ibox-tools></div>
+                </div>
+                <div class="ibox-content">
+
+                    <div  ng-repeat="part in exhibition.parts"><label > <input ng-model="part.selected"  icheck type="checkbox">{{part.name}}</label></div>
+
+
+
+
+
+                </div>
+
+            </div>
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="button" ng-click="saveUserAndApplication()"><i class="fa fa-check"></i>&nbsp;提交</button>
+                        <a class="btn btn-white" type="button" ui-sref="audits.lists" >取消</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -90,6 +90,76 @@ angular.module('inspinia')
       $scope.NPC.avatar =data._id;
 
     });
-  });
+  })
 
+.controller('applicationAddForNPCController', function ($scope,$state,User,$stateParams,Application,GenderOptions,Exhibition,Part,uploaderService,UserInfo) {
+
+    var id = $stateParams.exhibitionId;
+    $scope.genderOptions = GenderOptions;
+    $scope.NPC = {};
+    $scope.maleSelected ={};
+    $scope.skills=[];
+
+
+    var exhibitionParams ={};
+    exhibitionParams.id = id;
+    Exhibition.get(exhibitionParams,function (data) {
+        $scope.exhibition = data;
+        $scope.parts = $scope.exhibition.parts;
+        angular.forEach($scope.parts,function (part) {
+            angular.forEach($scope.application.parts,function (applicationPart) {
+                if(part._id == applicationPart._id)
+                {
+                    part.selected = true;
+                }
+            });
+        });
+    });
+
+    $scope.addSkill = addSkill;
+    $scope.saveUserAndApplication = saveUserAndApplication;
+
+    $scope.onSelect = onSelect;
+
+    function saveUserAndApplication() {
+        if($scope.exhibition)
+        {
+            var hopeParts = [];
+            angular.forEach($scope.parts,function (part) {
+                if(part.selected)
+                {
+                    hopeParts.push(part._id);
+                }
+            });
+
+            $scope.application.parts = hopeParts;
+            $scope.application.skills = $scope.skills;
+            var applicationParams = $scope.application;
+            applicationParams.applicant = $scope.user._id;
+            applicationParams.exhibition = $scope.exhibition;
+            Application.save(applicationParams,function (data) {
+                if(data)
+                {
+                    $state.go('audits.detail',{applicationId:data._id});
+                }
+            });
+        }
+
+    }
+
+    function addSkill(skill) {
+        $scope.skills.push(skill);
+    }
+
+    function onSelect(item) {
+        $scope.NPC.male = item.value;
+    }
+
+    $scope.uploader = uploaderService.buildUploader(function(data){
+        $scope.uploader.removeAfterUpload = true;
+        $scope.NPC.avatarPath = API_END_POINT + "/" + data.path.replace('public','');
+        $scope.NPC.avatar =data._id;
+
+    });
+});
 

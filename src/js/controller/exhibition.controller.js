@@ -29,6 +29,30 @@ angular.module('inspinia')
       });
     }
   })
+  .controller('ExhibitionListForNPCController', function ($scope,$state, Exhibition,UserInfo) {
+    var queryParams = {};
+    $scope.keywordSearch = keywordSearch;
+    reloadExhibitions();
+    function keywordSearch() {
+      queryParams.title = $scope.q;
+      reloadExhibitions();
+    }
+    function reloadExhibitions() {
+      Exhibition.query(queryParams,function (data) {
+        if (data) {
+          $scope.exhibitions = data;
+          angular.forEach($scope.exhibitions,function (exhibition)
+          {
+            if(exhibition.cover && exhibition.cover.path){
+              exhibition.coverPath = API_END_POINT + "/" +exhibition.cover.path.replace('public','');
+            }else{
+              exhibition.coverPath = "";
+            }
+          });
+        }
+      });
+    }
+  })
 
   .controller('ExhibitionFormController', function ($scope, $state,Exhibition,Discuss,Note, $stateParams, uploaderService,UserInfo,Part) {
 

@@ -1,0 +1,43 @@
+
+<div class="wrapper wrapper-content">
+    <div class="row animated fadeInCenter">
+        <div class="col-md-5">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>个人资料</h5>
+                </div>
+                <div>
+                    <div class="ibox-content no-padding border-left-right">
+                        <img width="50%" alt="image" class="img-responsive" ng-src="{{user.avatarPath}}">
+                    </div>
+                    <div class="ibox-content profile-content">
+                        <p>ID：{{user._id || '-'}}</p>
+                        <p>CN：{{user.CN || '-'}}</p>
+                        <p>姓名:{{user.realName || '-'}}</p>
+                        <p>性别：{{{'0':'男','1':'女'}[user.male] || '-'}}</p>
+                        <p>生日：{{user.birth || '-' | date: 'yyyy-MM-dd'}}</p>
+                        <p>邮箱：{{user.email || '-'}}</p>
+                        <p>手机：{{user.phone || '-'}}</p>
+                        <p>身份证：{{user.idCard || '-'}}</p>
+                        <p>地址：{{user.address || '-'}}</p>
+                        <p>QQ：{{user.QQ || '-'}}</p>
+
+                        <div class="user-button" style="margin-top: 20px;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary btn-sm btn-block" ng-click="userEdit(user._id)"><i class="fa fa-edit"></i> 编辑资料</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="upload" type="file" name="banner_cover" id="banner_cover" style="opacity: 0;width: 100%;height: 30px;cursor: pointer;" nv-file-select uploader="uploader"/>
+                                    <button type="button" class="btn btn-default btn-sm btn-block" style="margin-top: -30px;cursor: pointer;"><i class="fa fa-file-image-o"></i> 上传头像</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+</div>

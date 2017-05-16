@@ -1,0 +1,31 @@
+<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a ui-sref="dashboards_top.dashboard_4" class="navbar-brand">NPC申请</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+
+                    <a ui-sref="dashboards_top.npcDetail({userId: user._id})"><strong class="font-bold">{{user.CN || '未登录'}}</strong></a>
+                </li>
+
+                <li>
+                <li ng-if="user.userType=='NPC'">
+                    <a href="" ng-click="logout()">
+                        <i class="fa fa-sign-out"></i> 退出登录
+                    </a>
+                </li>
+                <li ng-if="!user._id||user.userType!='NPC'">
+                    <a href="login.html" >
+                        <i class="fa fa-sign-out"></i> 登录
+                    </a>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
